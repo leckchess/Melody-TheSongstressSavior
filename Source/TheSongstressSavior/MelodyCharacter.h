@@ -23,10 +23,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
 	int LaneCount = 2;
-	int LanePos = 2;
 
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
 	float LaneSize = 200;
+
+	UPROPERTY(EditAnywhere, Category = "Lane Options")
+	float LaneChangeSpeed = 3;
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	bool AutoForward = true;
@@ -43,16 +45,19 @@ public:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction* MoveAction;
 
-	/* UPROPERTY(EditAnywhere, Category = Input)
-	UInputAction* LookAction; */
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
 
 	void Move(const FInputActionValue& Value);
-	//void Look(const FInputActionValue& Value);
-	void LaneChange(float Direction);
+	void LaneChange(float Direction, bool Ready);
+	void LaneInterp(float Alpha);
+
+	// Lane Variables
+	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
+	int LanePos = 2;
+	float LaneLerp = 0.0;
+	bool CanChange = true;
 
 };

@@ -19,6 +19,7 @@ void AMelodyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Set initial lane to the median
 	LanePos = (LaneCount + 1) / 2;
 
 	// Add Input Mapping Context
@@ -37,8 +38,22 @@ void AMelodyCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (AutoForward)
 	{
+		// Constantly move the player forward
 		const FVector CurrentVector = GetActorLocation();
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
+	}
+
+	if (!CanChange)
+	{
+		// runs when lane change has initiated
+		LaneLerp = LaneLerp + LaneChangeSpeed * DeltaTime;
+		AMelodyCharacter::LaneInterp(LaneLerp);
+		if (LaneLerp >= 1)
+		{
+			CanChange = true;
+			LaneLerp = 0.0;
+			PrevVector = FVector(0, 0, 0);
+		}
 	}
 
 }
@@ -52,9 +67,8 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EIC->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EIC->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		// Move and Look at stuff
+		// Move
 		EIC->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMelodyCharacter::Move);
-		//EIC->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMelodyCharacter::Look);
 	}
 	else
 	{
@@ -63,18 +77,28 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
-void AMelodyCharacter::LaneChange(float Direction)
+void AMelodyCharacter::LaneInterp(float Alpha)
 {
-	FVector CurVec = GetActorLocation();
+	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, Alpha, 2);
+	SetActorLocation(GetActorLocation() + Dest - PrevVector);
+	PrevVector = Dest;
+}
+
+void AMelodyCharacter::LaneChange(float Direction, bool Ready)
+{
+	if (!Ready || GetCharacterMovement()->IsFalling()) return;
+	LaneEnd = FVector(0, LaneSize * Direction, 0);
 	if (LanePos > 1 && Direction < 0)
 	{
+		// Move Left
 		LanePos--;
-		SetActorLocation(CurVec + FVector(0, -LaneSize, 0));
+		CanChange = false;
 	}
 	else if (LanePos < LaneCount && Direction > 0)
 	{
+		// Move Right
 		LanePos++;
-		SetActorLocation(CurVec + FVector(0, LaneSize, 0));
+		CanChange = false;
 	}
 }
 
@@ -84,30 +108,9 @@ void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 
 	if (Controller != nullptr)
 	{
-		// Grabs the rotation of the controller
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// Gets the forward direction based on rotation
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		//AddMovementInput(ForwardDirection, MoveVector.Y);
-		//AddMovementInput(RightDirection, MoveVector.X);
 		if (MoveVector.X != 0)
 		{
-			AMelodyCharacter::LaneChange(MoveVector.X);
+			AMelodyCharacter::LaneChange(MoveVector.X, CanChange);
 		}
 	}
 }
-
-/* void AMelodyCharacter::Look(const FInputActionValue& LookValue)
-{
-	FVector2D LookVector = LookValue.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(LookVector.X);
-		AddControllerPitchInput(LookVector.Y);
-	}
-} */
