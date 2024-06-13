@@ -25,15 +25,18 @@ public:
 	int LaneCount = 2;
 
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
+	int SetStartingLane = -1;
+
+	UPROPERTY(EditAnywhere, Category = "Lane Options")
 	float LaneSize = 200;
 
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
 	float LaneChangeSpeed = 3;
 
-	UPROPERTY(EditAnywhere, Category = Input)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	bool AutoForward = true;
 
-	UPROPERTY(EditAnywhere, Category = Input)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	float Speed = 10;
 
 	UPROPERTY(EditAnywhere, Category = Input)
@@ -51,12 +54,12 @@ public:
 private:
 
 	void Move(const FInputActionValue& Value);
-	void LaneChange(float Direction, bool Ready);
+	void LaneChange(float Direction);
 	void LaneInterp(float Alpha);
 
 	// Lane Variables
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
-	int LanePos = 2;
+	int LanePos = 1;
 	float LaneLerp = 0.0;
 	bool CanChange = true;
 

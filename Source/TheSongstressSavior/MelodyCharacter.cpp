@@ -19,8 +19,20 @@ void AMelodyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Set initial lane to the median
+	// Set initial lane to median
 	LanePos = (LaneCount + 1) / 2;
+	if (SetStartingLane >= 1 && SetStartingLane <= LaneCount)
+	{
+		// Set custom start if SetStartingLane is valid
+		int Adjust = SetStartingLane - LanePos;
+		LanePos = SetStartingLane;
+
+		SetActorLocation(GetActorLocation() + FVector(0, LaneSize * Adjust, 0));
+	}
+	else if (SetStartingLane != -1)
+	{
+		UE_LOG(LogTemp, Error, TEXT("MELODYCHARACTER | 'SetStartingLane' is invalid."));
+	}
 
 	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -84,9 +96,9 @@ void AMelodyCharacter::LaneInterp(float Alpha)
 	PrevVector = Dest;
 }
 
-void AMelodyCharacter::LaneChange(float Direction, bool Ready)
+void AMelodyCharacter::LaneChange(float Direction)
 {
-	if (!Ready || GetCharacterMovement()->IsFalling()) return;
+	if (!CanChange || GetCharacterMovement()->IsFalling()) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 	if (LanePos > 1 && Direction < 0)
 	{
@@ -110,7 +122,7 @@ void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 	{
 		if (MoveVector.X != 0)
 		{
-			AMelodyCharacter::LaneChange(MoveVector.X, CanChange);
+			AMelodyCharacter::LaneChange(MoveVector.X);
 		}
 	}
 }
