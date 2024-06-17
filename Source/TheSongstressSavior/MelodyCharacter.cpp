@@ -2,6 +2,7 @@
 #include "Engine/LocalPlayer.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "StaminaController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AMelodyCharacter::AMelodyCharacter()
@@ -13,6 +14,8 @@ AMelodyCharacter::AMelodyCharacter()
 	bUseControllerRotationYaw = true;
 
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+	StaminaController = NewObject<UStaminaController>();
+	
 }
 
 void AMelodyCharacter::BeginPlay()
@@ -37,12 +40,14 @@ void AMelodyCharacter::BeginPlay()
 	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(IMC_Input, 0);
 		}
 	}
-	
+
+	StaminaController->Initialize(MaxStamina);
 }
 
 void AMelodyCharacter::Tick(float DeltaTime)
@@ -67,7 +72,6 @@ void AMelodyCharacter::Tick(float DeltaTime)
 			PrevVector = FVector(0, 0, 0);
 		}
 	}
-
 }
 
 void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -86,7 +90,6 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		UE_LOG(LogTemp, Error, TEXT("Woops... Failed to grab the Enhanced Input component silly goose!"));
 	}
-
 }
 
 void AMelodyCharacter::LaneInterp(float Alpha)
@@ -96,21 +99,34 @@ void AMelodyCharacter::LaneInterp(float Alpha)
 	PrevVector = Dest;
 }
 
+void AMelodyCharacter::AddStamina(float stamina)
+{
+	StaminaController->AddStaminaPercentage(stamina);
+}
+
 void AMelodyCharacter::LaneChange(float Direction)
 {
 	if (!CanChange || GetCharacterMovement()->IsFalling()) return;
+
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 	if (LanePos > 1 && Direction < 0)
 	{
-		// Move Left
-		LanePos--;
-		CanChange = false;
+		if (!bSwitchingLaneAffectsStamina || StaminaController->UseStamina(SwitchingLaneStaminaCost))
+		{
+			// Move Left
+			LanePos--;
+
+			CanChange = false;
+		}
 	}
 	else if (LanePos < LaneCount && Direction > 0)
 	{
-		// Move Right
-		LanePos++;
-		CanChange = false;
+		if (!bSwitchingLaneAffectsStamina || StaminaController->UseStamina(SwitchingLaneStaminaCost))
+		{
+			// Move Right
+			LanePos++;
+			CanChange = false;
+		}
 	}
 }
 
