@@ -54,8 +54,8 @@ public:
 	UInputAction* MoveAction;
 
 	UPROPERTY(EditAnywhere, Category = Stamina)
-	float MaxStamina;
-	
+	float MaxStamina = 100;
+
 	UPROPERTY(EditAnywhere, Category = Stamina)
 	bool bMovementAffectsStamina;
 	UPROPERTY(EditAnywhere, Category = Stamina, meta=(EditCondition="bMovementAffectsStamina", EditConditionHides))
