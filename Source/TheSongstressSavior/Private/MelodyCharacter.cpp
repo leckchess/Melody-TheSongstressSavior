@@ -2,6 +2,8 @@
 #include "Engine/LocalPlayer.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "StaminaController.h"
+#include "MelodyHUD.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AMelodyCharacter::AMelodyCharacter()
@@ -13,6 +15,8 @@ AMelodyCharacter::AMelodyCharacter()
 	bUseControllerRotationYaw = true;
 
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+
+	StaminaController = NewObject<UStaminaController>();
 }
 
 void AMelodyCharacter::BeginPlay()
@@ -37,12 +41,16 @@ void AMelodyCharacter::BeginPlay()
 	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) 
 		{
 			Subsystem->AddMappingContext(IMC_Input, 0);
 		}
 	}
 	
+	if(StaminaController)
+	{
+		StaminaController->Initialize(MaxStamina);
+	}
 }
 
 void AMelodyCharacter::Tick(float DeltaTime)
@@ -67,7 +75,6 @@ void AMelodyCharacter::Tick(float DeltaTime)
 			PrevVector = FVector(0, 0, 0);
 		}
 	}
-
 }
 
 void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -76,7 +83,7 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// Do a jump
-		EIC->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+		EIC->BindAction(JumpAction, ETriggerEvent::Started, this, &AMelodyCharacter::Jump);
 		EIC->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Move
@@ -89,6 +96,21 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
+{
+	PlayerHUD = Cast<UMelodyHUD>(InPlayerHUD);
+
+	if (PlayerHUD)
+	{
+		PlayerHUD->InitHUD(this);
+
+		if(StaminaController)
+		{
+			OnUseStamina.Broadcast(0.f, StaminaController->GetCurrentStamina(), StaminaController->GetMaxStamina());
+		}
+	}
+}
+
 void AMelodyCharacter::LaneInterp(float Alpha)
 {
 	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, Alpha, 2);
@@ -96,11 +118,30 @@ void AMelodyCharacter::LaneInterp(float Alpha)
 	PrevVector = Dest;
 }
 
+bool AMelodyCharacter::UseStamina(float stamina)
+{
+	if (StaminaController == nullptr) { return true; }
+
+	if (StaminaController->UseStamina(stamina))
+	{
+		OnUseStamina.Broadcast(stamina, StaminaController->GetCurrentStamina(), StaminaController->GetMaxStamina());
+		return true;
+	}
+
+	return false;
+}
+
+void AMelodyCharacter::AddStamina(float stamina)
+{
+	StaminaController->AddStaminaPercentage(stamina);
+}
+
 void AMelodyCharacter::LaneChange(float Direction)
 {
 	if (!CanChange || GetCharacterMovement()->IsFalling()) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
-	if (LanePos > 1 && Direction < 0)
+
+	if (!bSwitchingLaneAffectsStamina || UseStamina(SwitchingLaneStaminaCost))
 	{
 		// Move Left
 		LanePos--;
@@ -108,14 +149,18 @@ void AMelodyCharacter::LaneChange(float Direction)
 	}
 	else if (LanePos < LaneCount && Direction > 0)
 	{
-		// Move Right
-		LanePos++;
-		CanChange = false;
+		if (!bSwitchingLaneAffectsStamina || UseStamina(SwitchingLaneStaminaCost))
+		{
+			// Move Right
+			LanePos++;
+			CanChange = false;
+		}
 	}
 }
 
 void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 {
+	//TODO: make max speed based on stamina
 	FVector2D MoveVector = MoveValue.Get<FVector2D>();
 
 	if (Controller != nullptr)
@@ -124,5 +169,13 @@ void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 		{
 			AMelodyCharacter::LaneChange(MoveVector.X);
 		}
+	}
+}
+
+void AMelodyCharacter::Jump(const FInputActionValue& Value)
+{
+	if (!bJumpAffectsStamina || UseStamina(JumpStaminaCost))
+	{
+		ACharacter::Jump();
 	}
 }
