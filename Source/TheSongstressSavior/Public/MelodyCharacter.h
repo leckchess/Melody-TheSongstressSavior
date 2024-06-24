@@ -27,6 +27,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerHUD(UUserWidget* InPlayerHUD);
 
+	bool UseStamina(float stamina) const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,8 +39,6 @@ private:
 	void Jump(const FInputActionValue& Value);
 	void LaneChange(float Direction);
 	void LaneInterp(float Alpha);
-
-	bool UseStamina(float stamina);
 
 	/** stamina stamina percentage from 0 to 1 */
 	void AddStamina(float stamina);

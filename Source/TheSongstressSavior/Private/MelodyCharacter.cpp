@@ -118,7 +118,7 @@ void AMelodyCharacter::LaneInterp(float Alpha)
 	PrevVector = Dest;
 }
 
-bool AMelodyCharacter::UseStamina(float stamina)
+bool AMelodyCharacter::UseStamina(float stamina) const
 {
 	if (StaminaController == nullptr) { return true; }
 
