@@ -1,6 +1,6 @@
 [
 	{
-		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/MelodyCharacter.cpp",
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/InteractableInterface.cpp",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
@@ -8,7 +8,87 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
-		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/MelodyCharacter.h",
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/KingCharacter.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/MelodyCharacter.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/MelodyHUD.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/Obstacle.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/StaminaController.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/InteractableInterface.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/KingCharacter.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/MelodyCharacter.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/MelodyHUD.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/Obstacle.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/StaminaController.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_TheSongstressSavior/TheSongstressSavior.1.rsp"

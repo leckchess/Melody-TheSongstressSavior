@@ -172,7 +172,7 @@ void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 	}
 }
 
-void AMelodyCharacter::Jump(const FInputActionValue& Value)
+void AMelodyCharacter::Jump()
 {
 	if (!bJumpAffectsStamina || UseStamina(JumpStaminaCost))
 	{

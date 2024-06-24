@@ -33,12 +33,21 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Made protected for child class 'KingCharacter'
+	void LaneChange(float Direction);
+	void LaneInterp(float Alpha);
+
+	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
+	int LanePos = 1;
+	float LaneLerp = 0.0;
+	bool CanChange = true;
+	// Child Variables ^^^
+
+
 private:
 
 	void Move(const FInputActionValue& Value);
-	void Jump(const FInputActionValue& Value);
-	void LaneChange(float Direction);
-	void LaneInterp(float Alpha);
+	void Jump();
 
 	/** stamina stamina percentage from 0 to 1 */
 	void AddStamina(float stamina);
@@ -95,12 +104,5 @@ public:
 private:
 
 	UStaminaController* StaminaController;
-
-	// Lane Variables
-	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
-	int LanePos = 1;
-	float LaneLerp = 0.0;
-	bool CanChange = true;
-
 	class UMelodyHUD* PlayerHUD;
 };
