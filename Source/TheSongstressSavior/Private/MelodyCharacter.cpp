@@ -42,7 +42,6 @@ void AMelodyCharacter::BeginPlay()
 			Subsystem->AddMappingContext(IMC_Input, 0);
 		}
 	}
-	
 }
 
 void AMelodyCharacter::Tick(float DeltaTime)
@@ -55,19 +54,7 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
-	if (!CanChange)
-	{
-		// runs when lane change has initiated
-		LaneLerp = LaneLerp + LaneChangeSpeed * DeltaTime;
-		AMelodyCharacter::LaneInterp(LaneLerp);
-		if (LaneLerp >= 1)
-		{
-			CanChange = true;
-			LaneLerp = 0.0;
-			PrevVector = FVector(0, 0, 0);
-		}
-	}
-
+	AMelodyCharacter::LaneInterp(DeltaTime);
 }
 
 void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -86,14 +73,21 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		UE_LOG(LogTemp, Error, TEXT("Woops... Failed to grab the Enhanced Input component silly goose!"));
 	}
-
 }
 
-void AMelodyCharacter::LaneInterp(float Alpha)
+void AMelodyCharacter::LaneInterp(float DT)
 {
-	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, Alpha, 2);
+	if (CanChange) return;
+	LaneLerp = LaneLerp + LaneChangeSpeed * DT;
+	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, LaneLerp, 2);
 	SetActorLocation(GetActorLocation() + Dest - PrevVector);
 	PrevVector = Dest;
+	if (LaneLerp >= 1)
+	{
+		CanChange = true;
+		LaneLerp = 0.0;
+		PrevVector = FVector(0, 0, 0);
+	}
 }
 
 void AMelodyCharacter::LaneChange(float Direction)

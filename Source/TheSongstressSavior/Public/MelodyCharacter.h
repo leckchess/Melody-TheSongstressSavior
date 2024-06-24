@@ -11,11 +11,9 @@ class THESONGSTRESSSAVIOR_API AMelodyCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AMelodyCharacter();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
@@ -51,16 +49,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
-
 	void Move(const FInputActionValue& Value);
 	void LaneChange(float Direction);
-	void LaneInterp(float Alpha);
+	void LaneInterp(float DT);
 
 	// Lane Variables
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
 	int LanePos = 1;
 	float LaneLerp = 0.0;
 	bool CanChange = true;
-
 };
