@@ -41,8 +41,6 @@ protected:
 	int LanePos = 1;
 	float LaneLerp = 0.0;
 	bool CanChange = true;
-	// Child Variables ^^^
-
 
 private:
 
@@ -68,6 +66,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	bool AutoForward = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
+	bool MoveInAir = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	float Speed = 10;

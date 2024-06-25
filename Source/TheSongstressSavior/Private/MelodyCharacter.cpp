@@ -15,8 +15,8 @@ AMelodyCharacter::AMelodyCharacter()
 	bUseControllerRotationYaw = true;
 
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
-	GetCharacterMovement()->GravityScale = 2.0;
-	GetCharacterMovement()->JumpZVelocity = 800;
+	GetCharacterMovement()->GravityScale = 2.2;
+	GetCharacterMovement()->JumpZVelocity = 900;
 
 	StaminaController = NewObject<UStaminaController>();
 }
@@ -65,6 +65,7 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
+	// Ran when changing lanes
 	AMelodyCharacter::LaneInterp(DeltaTime);
 }
 
@@ -137,7 +138,7 @@ void AMelodyCharacter::AddStamina(float stamina)
 
 void AMelodyCharacter::LaneChange(float Direction)
 {
-	if (!CanChange || GetCharacterMovement()->IsFalling()) return;
+	if (!CanChange || !MoveInAir && GetCharacterMovement()->IsFalling()) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 
 	if (Direction < 0 && LanePos > 1)
