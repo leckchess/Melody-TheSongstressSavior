@@ -18,8 +18,7 @@ void AKingCharacter::Tick(float DeltaTime)
 {
 	// TODO: Make dynamic to allow speeding up or slowing down
 	FVector CurVec = GetActorLocation();
-	SetActorLocation(CurVec + FVector(12, 0, 0));
-	GEngine->AddOnScreenDebugMessage(0, DeltaTime, FColor::Red, FString::Printf(TEXT("Lane: %d"), LanePos));
+	SetActorLocation(CurVec + FVector(Speed, 0, 0));
 
 	if (AKingCharacter::CheckLane(0) && CanChange)
 	{

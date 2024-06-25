@@ -35,7 +35,7 @@ protected:
 
 	// Made protected for child class 'KingCharacter'
 	void LaneChange(float Direction);
-	void LaneInterp(float Alpha);
+	void LaneInterp(float DT);
 
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
 	int LanePos = 1;

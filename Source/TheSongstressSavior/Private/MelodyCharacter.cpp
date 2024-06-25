@@ -15,6 +15,8 @@ AMelodyCharacter::AMelodyCharacter()
 	bUseControllerRotationYaw = true;
 
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+	GetCharacterMovement()->GravityScale = 2.0;
+	GetCharacterMovement()->JumpZVelocity = 800;
 
 	StaminaController = NewObject<UStaminaController>();
 }
@@ -63,18 +65,7 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
-	if (!CanChange)
-	{
-		// runs when lane change has initiated
-		LaneLerp = LaneLerp + LaneChangeSpeed * DeltaTime;
-		AMelodyCharacter::LaneInterp(LaneLerp);
-		if (LaneLerp >= 1)
-		{
-			CanChange = true;
-			LaneLerp = 0.0;
-			PrevVector = FVector(0, 0, 0);
-		}
-	}
+	AMelodyCharacter::LaneInterp(DeltaTime);
 }
 
 void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -111,11 +102,19 @@ void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
 	}
 }
 
-void AMelodyCharacter::LaneInterp(float Alpha)
+void AMelodyCharacter::LaneInterp(float DT)
 {
-	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, Alpha, 2);
+	if (CanChange) return;
+	LaneLerp = LaneLerp + LaneChangeSpeed * DT;
+	FVector Dest = FMath::InterpEaseOut(FVector(0, 0, 0), LaneEnd, LaneLerp, 2);
 	SetActorLocation(GetActorLocation() + Dest - PrevVector);
 	PrevVector = Dest;
+	if (LaneLerp >= 1)
+	{
+		CanChange = true;
+		LaneLerp = 0.0;
+		PrevVector = FVector(0, 0, 0);
+	}
 }
 
 bool AMelodyCharacter::UseStamina(float stamina) const
