@@ -2,9 +2,9 @@
 #include "Engine/LocalPlayer.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "StaminaController.h"
 #include "MelodyHUD.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 AMelodyCharacter::AMelodyCharacter()
 {
@@ -140,13 +140,16 @@ void AMelodyCharacter::LaneChange(float Direction)
 	if (!CanChange || GetCharacterMovement()->IsFalling()) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 
-	if (!bSwitchingLaneAffectsStamina || UseStamina(SwitchingLaneStaminaCost))
+	if (Direction < 0 && LanePos > 1)
 	{
-		// Move Left
-		LanePos--;
-		CanChange = false;
+		if (!bSwitchingLaneAffectsStamina || UseStamina(SwitchingLaneStaminaCost))
+		{
+			// Move Left
+			LanePos--;
+			CanChange = false;
+		}
 	}
-	else if (LanePos < LaneCount && Direction > 0)
+	else if (Direction > 0 && LanePos < LaneCount)
 	{
 		if (!bSwitchingLaneAffectsStamina || UseStamina(SwitchingLaneStaminaCost))
 		{
@@ -173,6 +176,7 @@ void AMelodyCharacter::Move(const FInputActionValue& MoveValue)
 
 void AMelodyCharacter::Jump()
 {
+	if (GetCharacterMovement()->IsFalling()) return;
 	if (!bJumpAffectsStamina || UseStamina(JumpStaminaCost))
 	{
 		ACharacter::Jump();
