@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "StaminaController.h"
 #include "MelodyHUD.h"
+#include "Token.h"
 
 AMelodyCharacter::AMelodyCharacter()
 {
@@ -19,6 +20,12 @@ AMelodyCharacter::AMelodyCharacter()
 	GetCharacterMovement()->JumpZVelocity = 900;
 
 	StaminaController = NewObject<UStaminaController>();
+	
+	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
+	TriggerCapsule->InitCapsuleSize(55.f, 96.0f);;
+	TriggerCapsule->SetCollisionProfileName(TEXT("Trigger"));
+	TriggerCapsule->SetupAttachment(RootComponent);
+	TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &AMelodyCharacter::OnOverlapBegin);
 }
 
 void AMelodyCharacter::BeginPlay()
@@ -219,3 +226,19 @@ void AMelodyCharacter::Jump()
 		ACharacter::Jump();
 	}
 }
+
+
+void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp) 
+	{
+		if (AToken* Token = Cast<AToken>(OtherActor))
+		{
+			UE_LOG(LogTemp, Log, TEXT("OverlapDFASDF detected with %s"), *OtherActor->GetName());
+
+			Token->Interact(this);
+			Token->Destroy();
+		}
+        
+	}
+} 
