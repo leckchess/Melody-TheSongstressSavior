@@ -12,15 +12,20 @@ class THESONGSTRESSSAVIOR_API AKingCharacter : public AMelodyCharacter
 
 public:
 	AKingCharacter();
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Enemy Perception")
-	float SenseDistance = 2000;
+	AMelodyCharacter* Melody;
 
-	bool CheckLane(int Lane);
+	UPROPERTY(EditAnywhere, Category = "Enemy Controller")
+	float SenseDistance = 800;
 
-public:
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere, Category = "Enemy Controller")
+	float RandomChangeChance = 40;
+
+	void RandomSwitch(float DeltaTime);
+	void PickLane();
+	bool CheckLane(int Lane) const;
 };

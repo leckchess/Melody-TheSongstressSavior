@@ -18,37 +18,36 @@ class THESONGSTRESSSAVIOR_API AMelodyCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AMelodyCharacter();
-
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerHUD(UUserWidget* InPlayerHUD);
 
-	bool UseStamina(float stamina) const;
+	bool UseStamina(float stamina);
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	// Made protected for child class 'KingCharacter'
 	void LaneChange(float Direction);
 	void LaneInterp(float DT);
-
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
 	int LanePos = 1;
 	float LaneLerp = 0.0;
+	float DeltaSeconds = 0.0;
 	bool CanChange = true;
 
 private:
-
 	void Move(const FInputActionValue& Value);
 	void Jump();
 
-	/** stamina stamina percentage from 0 to 1 */
+	/* stamina percentage from 0 to 1 */
 	void AddStamina(float stamina);
+	void ReplenishStamina(float DeltaTime);
+
+	float LowSpeed = 0.0;
+	float RegSpeed = 0.0;
 
 public:
 
@@ -100,6 +99,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Stamina, meta=(EditCondition="bSwitchingLaneAffectsStamina", EditConditionHides))
 	float SwitchingLaneStaminaCost;
 
+	bool IsRefilling = false;
+	bool MoveCancelsReplenish = false;
 	FOnUseStamina OnUseStamina;
 
 private:

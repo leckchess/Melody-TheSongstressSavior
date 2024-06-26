@@ -12,6 +12,12 @@ AKingCharacter::AKingCharacter()
 void AKingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	Melody = Cast<AMelodyCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	if (Melody != nullptr)
+	{
+		LaneSize = Melody->LaneSize;
+		LaneChangeSpeed = Melody->LaneChangeSpeed;
+	}
 }
 
 void AKingCharacter::Tick(float DeltaTime)
@@ -22,27 +28,49 @@ void AKingCharacter::Tick(float DeltaTime)
 
 	if (AKingCharacter::CheckLane(0) && CanChange)
 	{
-		int PickDirection = (rand() % 2 == 0) ? -1 : 1;
-		if (AKingCharacter::CheckLane(PickDirection))
-		{
-			LaneChange(PickDirection);
-		}
-		else
-		{
-			LaneChange(-PickDirection);
-		}
+		AKingCharacter::PickLane();
 	}
 
+	if (RandomChangeChance != 0)
+	{
+		AKingCharacter::RandomSwitch(DeltaTime);
+	}
 	LaneInterp(DeltaTime);
 }
 
-bool AKingCharacter::CheckLane(int Lane)
+void AKingCharacter::RandomSwitch(float DeltaTime)
+{
+	DeltaSeconds = DeltaSeconds + (1 * DeltaTime);
+
+	if (DeltaSeconds > 1)
+	{
+		DeltaSeconds = 0;
+		if (rand() % 100 < RandomChangeChance)
+		{
+			AKingCharacter::PickLane();
+		}
+	}
+}
+
+void AKingCharacter::PickLane()
+{
+	int MoveCount = 0;
+	do { MoveCount = rand() % LaneCount + 1; } while (MoveCount == LanePos);
+
+	MoveCount = MoveCount - LanePos;
+	if (!AKingCharacter::CheckLane(MoveCount))
+	{
+		AKingCharacter::LaneChange(MoveCount);
+	}
+}
+
+bool AKingCharacter::CheckLane(int Lane) const
 {
 	FHitResult HitResult;
 	FVector BegTrace = GetActorLocation() + FVector(0, LaneSize * Lane, 0);
 	FVector EndTrace = BegTrace + FVector(SenseDistance, 0, 0);
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(30);
-	DrawDebugLine(GetWorld(), BegTrace, EndTrace, FColor::Red);
+	//DrawDebugLine(GetWorld(), BegTrace, EndTrace, FColor::Red);
 	bool GetHit = GetWorld()->SweepSingleByChannel(
 		HitResult,
 		BegTrace,

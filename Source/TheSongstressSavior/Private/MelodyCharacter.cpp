@@ -25,6 +25,9 @@ void AMelodyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	LowSpeed = Speed * 0.75;
+	RegSpeed = Speed;
+
 	// Set initial lane to median
 	LanePos = (LaneCount + 1) / 2;
 	if (SetStartingLane >= 1 && SetStartingLane <= LaneCount)
@@ -49,7 +52,7 @@ void AMelodyCharacter::BeginPlay()
 		}
 	}
 	
-	if(StaminaController)
+	if (StaminaController)
 	{
 		StaminaController->Initialize(MaxStamina);
 	}
@@ -65,8 +68,8 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
-	// Ran when changing lanes
 	AMelodyCharacter::LaneInterp(DeltaTime);
+	AMelodyCharacter::ReplenishStamina(DeltaTime);
 }
 
 void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -118,12 +121,33 @@ void AMelodyCharacter::LaneInterp(float DT)
 	}
 }
 
-bool AMelodyCharacter::UseStamina(float stamina) const
+void AMelodyCharacter::ReplenishStamina(float DeltaTime)
+{
+	if (IsRefilling || StaminaController->GetCurrentStamina() <= 0)
+	{
+		Speed = LowSpeed;
+		IsRefilling = true;
+		DeltaSeconds = DeltaSeconds + (1 * DeltaTime);
+		if (DeltaSeconds > 0.15)
+		{
+			AMelodyCharacter::AddStamina(0.02);
+			DeltaSeconds = 0;
+		}
+		if (StaminaController->GetCurrentStamina() == 100)
+		{
+			Speed = RegSpeed;
+			IsRefilling = false;
+		}
+	}
+}
+
+bool AMelodyCharacter::UseStamina(float stamina)
 {
 	if (StaminaController == nullptr) { return true; }
 
 	if (StaminaController->UseStamina(stamina))
 	{
+		if (MoveCancelsReplenish) { IsRefilling = false; }
 		OnUseStamina.Broadcast(stamina, StaminaController->GetCurrentStamina(), StaminaController->GetMaxStamina());
 		return true;
 	}
@@ -134,6 +158,7 @@ bool AMelodyCharacter::UseStamina(float stamina) const
 void AMelodyCharacter::AddStamina(float stamina)
 {
 	StaminaController->AddStaminaPercentage(stamina);
+	OnUseStamina.Broadcast(stamina, StaminaController->GetCurrentStamina(), StaminaController->GetMaxStamina());
 }
 
 void AMelodyCharacter::LaneChange(float Direction)
