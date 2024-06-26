@@ -75,3 +75,4 @@ DerivedDataCache/*
 /Content/StarterContent
 .DS_Store
 /.vscode
+/.idea
