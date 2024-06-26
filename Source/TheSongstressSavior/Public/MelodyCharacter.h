@@ -35,7 +35,6 @@ protected:
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
 	int LanePos = 1;
 	float LaneLerp = 0.0;
-	float DeltaSeconds = 0.0;
 	bool CanChange = true;
 
 private:
@@ -45,6 +44,7 @@ private:
 	/* stamina percentage from 0 to 1 */
 	void AddStamina(float stamina);
 	void ReplenishStamina(float DeltaTime);
+	void ConstStaminaLoss(float DeltaTime);
 
 	float LowSpeed = 0.0;
 	float RegSpeed = 0.0;
@@ -83,6 +83,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Stamina)
 	float MaxStamina = 100;
+
+	UPROPERTY(EditAnywhere, Category = Stamina)
+	int RunningStaminaLoss = 2;
 	
 	UPROPERTY(EditAnywhere, Category = Stamina)
 	bool bMovementAffectsStamina;
@@ -99,11 +102,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = Stamina, meta=(EditCondition="bSwitchingLaneAffectsStamina", EditConditionHides))
 	float SwitchingLaneStaminaCost;
 
-	bool IsRefilling = false;
-	bool MoveCancelsReplenish = false;
 	FOnUseStamina OnUseStamina;
 
 private:
+
+	bool IsRefilling = false;
+	bool MoveCancelsReplenish = false;
+	bool AlwaysLooseStamina = true;
+
+	float ReplenishDelta = 0.0;
+	float LossDelta = 0.0;
 
 	UStaminaController* StaminaController;
 	class UMelodyHUD* PlayerHUD;

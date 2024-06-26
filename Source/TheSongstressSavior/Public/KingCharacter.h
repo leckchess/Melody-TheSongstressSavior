@@ -28,4 +28,6 @@ protected:
 	void RandomSwitch(float DeltaTime);
 	void PickLane();
 	bool CheckLane(int Lane) const;
+
+	float SwitchDelta = 0.0;
 };

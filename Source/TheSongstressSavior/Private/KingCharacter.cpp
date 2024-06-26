@@ -7,6 +7,8 @@
 AKingCharacter::AKingCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	//JumpTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
 }
 
 void AKingCharacter::BeginPlay()
@@ -40,11 +42,11 @@ void AKingCharacter::Tick(float DeltaTime)
 
 void AKingCharacter::RandomSwitch(float DeltaTime)
 {
-	DeltaSeconds = DeltaSeconds + (1 * DeltaTime);
+	SwitchDelta = SwitchDelta + (1 * DeltaTime);
 
-	if (DeltaSeconds > 1)
+	if (SwitchDelta > 1)
 	{
-		DeltaSeconds = 0;
+		SwitchDelta = 0;
 		if (rand() % 100 < RandomChangeChance)
 		{
 			AKingCharacter::PickLane();

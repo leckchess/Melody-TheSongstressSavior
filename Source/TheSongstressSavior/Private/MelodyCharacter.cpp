@@ -68,6 +68,7 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
+	if (AlwaysLooseStamina) { AMelodyCharacter::ConstStaminaLoss(DeltaTime); }
 	AMelodyCharacter::LaneInterp(DeltaTime);
 	AMelodyCharacter::ReplenishStamina(DeltaTime);
 }
@@ -121,17 +122,27 @@ void AMelodyCharacter::LaneInterp(float DT)
 	}
 }
 
+void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)
+{
+	LossDelta = LossDelta + (1 * DeltaTime);
+	if (LossDelta > 1)
+	{
+		AMelodyCharacter::UseStamina(RunningStaminaLoss);
+		LossDelta = 0;
+	}
+}
+
 void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 {
 	if (IsRefilling || StaminaController->GetCurrentStamina() <= 0)
 	{
 		Speed = LowSpeed;
 		IsRefilling = true;
-		DeltaSeconds = DeltaSeconds + (1 * DeltaTime);
-		if (DeltaSeconds > 0.15)
+		ReplenishDelta = ReplenishDelta + (1 * DeltaTime);
+		if (ReplenishDelta > 0.15)
 		{
 			AMelodyCharacter::AddStamina(0.02);
-			DeltaSeconds = 0;
+			ReplenishDelta = 0;
 		}
 		if (StaminaController->GetCurrentStamina() == 100)
 		{

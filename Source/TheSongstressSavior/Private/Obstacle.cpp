@@ -27,7 +27,7 @@ void AObstacle::BeginPlay()
 	Super::BeginPlay();
 	if (Meshes.Num() > 0)
 	{
-		const auto selectedIndex = FMath::RandRange(0, Meshes.Num());
+		const auto selectedIndex = FMath::RandRange(0, Meshes.Num() - 1);
 		MeshComponent->SetStaticMesh(Meshes[selectedIndex]);
 	}
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OnComponentBeginOverlap);
