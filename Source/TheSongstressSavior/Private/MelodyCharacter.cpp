@@ -75,7 +75,7 @@ void AMelodyCharacter::Tick(float DeltaTime)
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
-	if (AlwaysLooseStamina) { AMelodyCharacter::ConstStaminaLoss(DeltaTime); }
+	if (AlwaysLooseStamina && !IsRefilling) { AMelodyCharacter::ConstStaminaLoss(DeltaTime); }
 	AMelodyCharacter::LaneInterp(DeltaTime);
 	AMelodyCharacter::ReplenishStamina(DeltaTime);
 }
