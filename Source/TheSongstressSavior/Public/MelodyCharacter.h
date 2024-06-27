@@ -110,8 +110,6 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Trigger Capsule")
 	class UCapsuleComponent* TriggerCapsule;
 
-	bool IsRefilling = false;
-	bool MoveCancelsReplenish = false;
 	FOnUseStamina OnUseStamina;
 
 private:
