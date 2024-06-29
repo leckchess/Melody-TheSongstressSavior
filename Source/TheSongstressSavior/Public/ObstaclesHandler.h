@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Token.h"
 #include "GameFramework/Actor.h"
 #include "ObstaclesHandler.generated.h"
 
@@ -20,7 +21,16 @@ private:
 	class AMelodyCharacter* Melody;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class AStaminaToken> StaminaToken;
+	TArray<TSubclassOf<AToken>> Tokens;
+
+	UPROPERTY(EditAnywhere)
+	int ObstaclesEnd = 20000;
+
+	UPROPERTY(EditAnywhere)
+	// Percent out of 100
+	int LaneChangeChance = 50;
+
+	FActorSpawnParameters ObstacleParams;
 
 	FVector InitialVector = FVector(0, 0, 0);
 	FVector PlaceVector = FVector(0, 0, 0);
