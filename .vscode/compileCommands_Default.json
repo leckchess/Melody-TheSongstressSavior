@@ -1,6 +1,38 @@
 [
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/DisharmonyToken.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/DynamicSoundSystem.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/ImmunityToken.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/InteractableInterface.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/JazzUltimateToken.cpp",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
@@ -32,7 +64,39 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/MetalUltimateToken.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/Obstacle.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/ObstaclesHandler.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/SoundData.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/SpeedToken.cpp",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
@@ -48,7 +112,55 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/StaminaToken.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/Token.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/DisharmonyToken.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/DynamicSoundSystem.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/ImmunityToken.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/InteractableInterface.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/JazzUltimateToken.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
@@ -80,6 +192,14 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/MetalUltimateToken.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/Obstacle.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
@@ -88,7 +208,47 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/ObstaclesHandler.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/SoundData.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/SpeedToken.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/StaminaController.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/StaminaToken.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/Token.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"

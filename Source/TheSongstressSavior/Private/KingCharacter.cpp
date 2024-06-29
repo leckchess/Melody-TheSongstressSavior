@@ -19,6 +19,7 @@ void AKingCharacter::BeginPlay()
 	{
 		LaneSize = Melody->LaneSize;
 		LaneChangeSpeed = Melody->LaneChangeSpeed;
+		Speed = Melody->Speed;
 	}
 }
 
@@ -69,8 +70,8 @@ void AKingCharacter::PickLane()
 bool AKingCharacter::CheckLane(int Lane) const
 {
 	FHitResult HitResult;
-	FVector BegTrace = GetActorLocation() + FVector(0, LaneSize * Lane, 0);
-	FVector EndTrace = BegTrace + FVector(SenseDistance, 0, 0);
+	FVector BegTrace = GetActorLocation() + FVector(-400, LaneSize * Lane, 0);
+	FVector EndTrace = BegTrace + FVector(SenseDistance + 400, 0, 0);
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(30);
 	//DrawDebugLine(GetWorld(), BegTrace, EndTrace, FColor::Red);
 	bool GetHit = GetWorld()->SweepSingleByChannel(
