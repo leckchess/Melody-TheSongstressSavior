@@ -99,19 +99,6 @@ void AMelodyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
-void AMelodyCharacter::PossessedBy(AController* NewController)
-{
-	Super::PossessedBy(NewController);
-
-	if (NewController)
-	{
-		if (APlayerController* PlayerController = Cast<APlayerController>(NewController))
-		{
-			PlayerController->SetShowMouseCursor(true);
-		}
-	}
-}
-
 void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
 {
 	PlayerHUD = Cast<UMelodyHUD>(InPlayerHUD);
@@ -147,11 +134,6 @@ void AMelodyCharacter::LaneInterp(float DT)
 void AMelodyCharacter::StartGame()
 {
 	AutoForward = true;
-
-	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
-	{
-		PlayerController->SetShowMouseCursor(false);
-	}
 }
 
 void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)
