@@ -30,10 +30,14 @@ private:
 	// Percent out of 100
 	int LaneChangeChance = 50;
 
+	int GetLaneCount = 2;
+	int GetLanePos = 1;
+	float GetLaneSize = 200.0;
+
 	FActorSpawnParameters ObstacleParams;
 
 	FVector InitialVector = FVector(0, 0, 0);
 	FVector PlaceVector = FVector(0, 0, 0);
-	FVector ObjectGap = FVector(0, 0, 0);
+	FVector ObjectGap = FVector(1200, 0, 0);
 
 };

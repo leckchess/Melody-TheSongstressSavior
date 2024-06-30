@@ -167,7 +167,7 @@ void AMelodyCharacter::StartGame()
 void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)
 {
 	LossDelta = LossDelta + (1 * DeltaTime);
-	if (LossDelta > 1)
+	if (LossDelta > 0.25)
 	{
 		AMelodyCharacter::UseStamina(RunningStaminaLoss);
 		LossDelta = 0;
@@ -286,8 +286,6 @@ void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 	{
 		if (AToken* Token = Cast<AToken>(OtherActor))
 		{
-			UE_LOG(LogTemp, Log, TEXT("OverlapDFASDF detected with %s"), *OtherActor->GetName());
-
 			Token->Interact(this);
 			Token->Destroy();
 		}

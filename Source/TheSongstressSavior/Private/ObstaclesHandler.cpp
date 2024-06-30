@@ -18,10 +18,9 @@ void AObstaclesHandler::BeginPlay()
 	if (Melody != nullptr)
 	{
 		ObjectGap = FVector(Melody->Speed * 80, 0, 0);
-	}
-	else
-	{
-		ObjectGap = FVector(1200, 0, 0);
+		GetLanePos = (GetLanePos + 1) / 2;
+		GetLaneCount = Melody->LaneCount;
+		GetLaneSize = Melody->LaneSize;
 	}
 	InitialVector = GetActorLocation();
 	PlaceVector = InitialVector + FVector(3 * ObjectGap.X, 0, 0);
@@ -35,7 +34,14 @@ void AObstaclesHandler::Tick(float DeltaTime)
 	if (PlaceVector.X < ObstaclesEnd)
 	{
 		PlaceVector = PlaceVector + ObjectGap;
-		DrawDebugSphere(GetWorld(), PlaceVector, 40, 24, FColor::Blue, false, 10);
+		if (rand() % 100 < LaneChangeChance)
+		{
+			int MoveCount = rand() % GetLaneCount + 1;
+			MoveCount = MoveCount - GetLanePos;
+			GetLanePos = GetLanePos + MoveCount;
+			PlaceVector = PlaceVector + FVector(0, MoveCount * GetLaneSize, 0);
+			GetWorld()->SpawnActor<AActor>(Tokens[0], PlaceVector, FRotator(0, 0, 0), ObstacleParams);
+		}
 	}
 }
 

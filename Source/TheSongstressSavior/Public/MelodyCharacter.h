@@ -26,6 +26,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerHUD(UUserWidget* InPlayerHUD);
 
+	/* stamina percentage from 0 to 1 */
+	void AddStamina(float stamina);
 	bool UseStamina(float stamina);
 
 	UFUNCTION()
@@ -45,8 +47,6 @@ private:
 	void Move(const FInputActionValue& Value);
 	void Jump();
 
-	/* stamina percentage from 0 to 1 */
-	void AddStamina(float stamina);
 	void ReplenishStamina(float DeltaTime);
 	void ConstStaminaLoss(float DeltaTime);
 

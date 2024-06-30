@@ -1,13 +1,8 @@
 #include "Token.h"
-#include "MelodyCharacter.h"
 
 AToken::AToken()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
-	// Optionally, set up a default mesh for the token
-	// UStaticMeshComponent* Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TokenMesh"));
-	// RootComponent = Mesh;
 }
 
 void AToken::BeginPlay()
