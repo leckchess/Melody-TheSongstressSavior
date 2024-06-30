@@ -109,8 +109,6 @@ void AMelodyCharacter::PossessedBy(AController* NewController)
 		{
 			PlayerController->SetInputMode(FInputModeGameAndUI());
 			PlayerController->SetShowMouseCursor(true);
-			PlayerController->bEnableClickEvents = true;
-			PlayerController->bEnableMouseOverEvents = true;
 		}
 	}
 }
@@ -154,8 +152,6 @@ void AMelodyCharacter::StartGame()
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		PlayerController->SetShowMouseCursor(false);
-		PlayerController->bEnableClickEvents = false;
-		PlayerController->bEnableMouseOverEvents = false;
 	}
 }
 
