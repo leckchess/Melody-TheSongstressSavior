@@ -33,16 +33,24 @@ void AObstaclesHandler::Tick(float DeltaTime)
 
 	if (PlaceVector.X < ObstaclesEnd)
 	{
+		UClass* InActor = Tokens[0];
+		int MoveCount;
 		PlaceVector = PlaceVector + ObjectGap;
+
 		if (rand() % 100 < LaneChangeChance)
 		{
-			int MoveCount = rand() % GetLaneCount + 1;
+			do { MoveCount = rand() % GetLaneCount + 1; } while ( MoveCount == GetLanePos );
 			MoveCount = MoveCount - GetLanePos;
 			GetLanePos = GetLanePos + MoveCount;
 			PlaceVector = PlaceVector + FVector(0, MoveCount * GetLaneSize, 0);
 		}
+		if (rand() % 100 < 25)
+		{
+			InActor = ObstacleActor;
+		}
+		
 		GetWorld()->SpawnActor<AActor>(
-			Tokens[0],
+			InActor,
 			PlaceVector,
 			FRotator(0, 0, 0),
 			ObstacleParams

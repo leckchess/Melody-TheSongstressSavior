@@ -24,10 +24,14 @@ private:
 	TArray<TSubclassOf<AToken>> Tokens;
 
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ObstacleActor;
+
+	// Obstacles will generate up to this distance
+	UPROPERTY(EditAnywhere)
 	int ObstaclesEnd = 20000;
 
-	UPROPERTY(EditAnywhere)
 	// Percent out of 100
+	UPROPERTY(EditAnywhere)
 	int LaneChangeChance = 50;
 
 	int GetLaneCount = 2;
