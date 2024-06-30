@@ -111,6 +111,8 @@ void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
 		{
 			OnUseStamina.Broadcast(0.f, StaminaController->GetCurrentStamina(), StaminaController->GetMaxStamina());
 		}
+
+		PlayerHUD->OnGameStarted.AddUObject(this, &AMelodyCharacter::StartGame);
 	}
 }
 
@@ -127,6 +129,11 @@ void AMelodyCharacter::LaneInterp(float DT)
 		LaneLerp = 0.0;
 		PrevVector = FVector(0, 0, 0);
 	}
+}
+
+void AMelodyCharacter::StartGame()
+{
+	AutoForward = true;
 }
 
 void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)

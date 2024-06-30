@@ -30,17 +30,15 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-
+	
+	UFUNCTION()
+	void StartGame();
 protected:
 	virtual void BeginPlay() override;
 
 	// Made protected for child class 'KingCharacter'
 	void LaneChange(float Direction);
 	void LaneInterp(float DT);
-	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
-	int LanePos = 1;
-	float LaneLerp = 0.0;
-	bool CanChange = true;
 
 private:
 	void Move(const FInputActionValue& Value);
@@ -50,9 +48,6 @@ private:
 	void AddStamina(float stamina);
 	void ReplenishStamina(float DeltaTime);
 	void ConstStaminaLoss(float DeltaTime);
-
-	float LowSpeed = 0.0;
-	float RegSpeed = 0.0;
 
 public:
 
@@ -69,7 +64,7 @@ public:
 	float LaneChangeSpeed = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
-	bool AutoForward = true;
+	bool AutoForward = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	bool MoveInAir = false;
@@ -112,6 +107,12 @@ public:
 
 	FOnUseStamina OnUseStamina;
 
+protected:
+	FVector LaneEnd, PrevVector = FVector(0, 0, 0);
+	int LanePos = 1;
+	float LaneLerp = 0.0;
+	bool CanChange = true;
+
 private:
 
 	bool IsRefilling = false;
@@ -123,4 +124,7 @@ private:
 
 	UStaminaController* StaminaController;
 	class UMelodyHUD* PlayerHUD;
+
+	float LowSpeed = 0.0;
+	float RegSpeed = 0.0;
 };

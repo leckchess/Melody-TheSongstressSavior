@@ -25,6 +25,11 @@ void AKingCharacter::BeginPlay()
 
 void AKingCharacter::Tick(float DeltaTime)
 {
+	if (Melody == nullptr || Melody->AutoForward == false)
+	{
+		return;
+	}
+
 	// TODO: Make dynamic to allow speeding up or slowing down
 	FVector CurVec = GetActorLocation();
 	SetActorLocation(CurVec + FVector(Speed, 0, 0));
