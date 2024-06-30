@@ -50,6 +50,8 @@ private:
 	void ReplenishStamina(float DeltaTime);
 	void ConstStaminaLoss(float DeltaTime);
 
+	class ADynamicSoundSystem* GetAudioSystem();
+
 public:
 
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
@@ -113,6 +115,9 @@ protected:
 	int LanePos = 1;
 	float LaneLerp = 0.0;
 	bool CanChange = true;
+
+
+	class ADynamicSoundSystem* CachedAudioSystem;
 
 private:
 

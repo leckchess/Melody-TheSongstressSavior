@@ -36,6 +36,12 @@ public:
 	UAudioComponent* SfxAudioComponent;
 
 	UPROPERTY(VisibleAnywhere)
+	UAudioComponent* AmbienceAudioComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UAudioComponent* HorseAudioComponent;
+
+	UPROPERTY(VisibleAnywhere)
 	UAudioComponent* MusicAudioComponent1;
 
 	UPROPERTY(VisibleAnywhere)
@@ -52,6 +58,8 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	void OnGameStarted();
+
 	UFUNCTION()
 	void PlaySound(SFX sfx) const;
 
@@ -60,6 +68,7 @@ public:
 
 	UFUNCTION()
 	void SwitchMusic();
+
 
 private:
 	FTimerHandle SwitchMusicTimer;

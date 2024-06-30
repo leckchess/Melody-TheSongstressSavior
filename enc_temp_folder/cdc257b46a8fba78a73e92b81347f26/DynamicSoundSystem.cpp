@@ -36,11 +36,8 @@ void ADynamicSoundSystem::BeginPlay()
 
 	CurrentSound = SoundsData[0];
 
-	if(CurrentSound)
-	{
-		MusicAudioComponent1->Sound = CurrentSound->BgMusic;
-		MusicAudioComponent1->Play();
-	}
+	MusicAudioComponent1->Sound = CurrentSound->BgMusic;
+	MusicAudioComponent1->Play();
 }
 
 void ADynamicSoundSystem::OnGameStarted()
@@ -49,14 +46,11 @@ void ADynamicSoundSystem::OnGameStarted()
 
 	CurrentSound = SoundsData[0];
 
-	if (CurrentSound)
-	{
-		AmbienceAudioComponent->Sound = CurrentSound->Ambience;
-		HorseAudioComponent->Sound = CurrentSound->HorseSteps;
+	AmbienceAudioComponent->Sound = CurrentSound->Ambience;
+	HorseAudioComponent->Sound = CurrentSound->HorseSteps;
 
-		AmbienceAudioComponent->Play();
-		HorseAudioComponent->Play();
-	}
+	AmbienceAudioComponent->Play();
+	HorseAudioComponent->Play();
 }
 
 void ADynamicSoundSystem::PlaySound(SFX sfx) const

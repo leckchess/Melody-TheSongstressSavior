@@ -6,6 +6,8 @@
 #include "StaminaController.h"
 #include "MelodyHUD.h"
 #include "Token.h"
+#include "DynamicSoundSystem.h"
+#include "Runtime/Engine/Public/EngineUtils.h"
 
 AMelodyCharacter::AMelodyCharacter()
 {
@@ -34,7 +36,7 @@ void AMelodyCharacter::BeginPlay()
 
 	LowSpeed = Speed * 0.75;
 	RegSpeed = Speed;
-
+	
 	// Set initial lane to median
 	LanePos = (LaneCount + 1) / 2;
 	if (SetStartingLane >= 1 && SetStartingLane <= LaneCount)
@@ -111,6 +113,8 @@ void AMelodyCharacter::PossessedBy(AController* NewController)
 			PlayerController->SetShowMouseCursor(true);
 		}
 	}
+
+	GetAudioSystem();
 }
 
 void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
@@ -153,6 +157,11 @@ void AMelodyCharacter::StartGame()
 	{
 		PlayerController->SetShowMouseCursor(false);
 	}
+
+	if (GetAudioSystem())
+	{
+		GetAudioSystem()->OnGameStarted();
+	}
 }
 
 void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)
@@ -163,6 +172,23 @@ void AMelodyCharacter::ConstStaminaLoss(float DeltaTime)
 		AMelodyCharacter::UseStamina(RunningStaminaLoss);
 		LossDelta = 0;
 	}
+}
+
+ADynamicSoundSystem* AMelodyCharacter::GetAudioSystem()
+{
+	if (CachedAudioSystem == nullptr)
+	{
+		for (TActorIterator<ADynamicSoundSystem> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+		{
+			if (*ActorItr != nullptr)
+			{
+				CachedAudioSystem = *ActorItr;
+				break;
+			}
+		}
+	}
+
+	return CachedAudioSystem;
 }
 
 void AMelodyCharacter::ReplenishStamina(float DeltaTime)

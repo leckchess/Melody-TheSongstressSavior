@@ -30,4 +30,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	USoundWave* BgMusic;
+
+	UPROPERTY(EditAnywhere)
+	USoundWave* Ambience;
+
+	UPROPERTY(EditAnywhere)
+	USoundWave* HorseSteps;
 };
