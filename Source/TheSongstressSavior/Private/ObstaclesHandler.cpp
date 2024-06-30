@@ -40,8 +40,13 @@ void AObstaclesHandler::Tick(float DeltaTime)
 			MoveCount = MoveCount - GetLanePos;
 			GetLanePos = GetLanePos + MoveCount;
 			PlaceVector = PlaceVector + FVector(0, MoveCount * GetLaneSize, 0);
-			GetWorld()->SpawnActor<AActor>(Tokens[0], PlaceVector, FRotator(0, 0, 0), ObstacleParams);
 		}
+		GetWorld()->SpawnActor<AActor>(
+			Tokens[0],
+			PlaceVector,
+			FRotator(0, 0, 0),
+			ObstacleParams
+		);
 	}
 }
 
