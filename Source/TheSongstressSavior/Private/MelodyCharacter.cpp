@@ -107,6 +107,7 @@ void AMelodyCharacter::PossessedBy(AController* NewController)
 	{
 		if (APlayerController* PlayerController = Cast<APlayerController>(NewController))
 		{
+			PlayerController->SetInputMode(FInputModeGameAndUI());
 			PlayerController->SetShowMouseCursor(true);
 			PlayerController->bEnableClickEvents = true;
 			PlayerController->bEnableMouseOverEvents = true;
