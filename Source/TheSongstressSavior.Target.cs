@@ -9,6 +9,7 @@ public class TheSongstressSaviorTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
+		MacPlatform.bUseDSYMFiles = false;
 
 		ExtraModuleNames.AddRange( new string[] { "TheSongstressSavior" } );
 	}
