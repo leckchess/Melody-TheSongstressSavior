@@ -113,6 +113,8 @@ void AMelodyCharacter::PossessedBy(AController* NewController)
 		}
 	}
 
+	OnUseStamina.AddUObject(this, &AMelodyCharacter::OnUseStaminaHandle);
+
 	GetAudioSystem();
 }
 
@@ -254,6 +256,20 @@ bool AMelodyCharacter::UseStamina(float stamina)
 void AMelodyCharacter::UpdateSpeed()
 {
 	OnUpdateSpeed.Broadcast(Speed, MaxSpeed);
+}
+
+void AMelodyCharacter::OnUseStaminaHandle(float Amount, float InCurrentStamina, float InMaxStamina)
+{
+	if (CachedAudioSystem == nullptr)
+	{
+		GetAudioSystem();
+	}
+
+	if (CachedAudioSystem)
+	{
+		float Percentage = (InCurrentStamina / InMaxStamina);
+		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
+	}
 }
 
 void AMelodyCharacter::AddStamina(float stamina)

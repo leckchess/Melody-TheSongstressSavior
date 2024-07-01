@@ -68,32 +68,45 @@ void ADynamicSoundSystem::PlaySound(SFX sfx) const
 
 void ADynamicSoundSystem::SwitchMood(Mood mood)
 {
-	MusicAudioComponent2->Sound = BGMusicData[CurrentMood];
-	MusicAudioComponent2->VolumeMultiplier = 1;
-	CurrentMood = mood;
-	MusicAudioComponent1->Sound = BGMusicData[CurrentMood];
-	MusicAudioComponent2->VolumeMultiplier = 0;
-
-	MusicAudioComponent1->Play();
-	MusicAudioComponent2->Play();
-
-	GetWorld()->GetTimerManager().ClearTimer(SwitchMusicTimer);
-	GetWorld()->GetTimerManager().SetTimer(SwitchMusicTimer, this, &ADynamicSoundSystem::SwitchMusic, 0.03, true);
-}
-
-void ADynamicSoundSystem::SwitchMusic()
-{
-	Alpha += SwitchingMusicTime / 0.03; //in 2 second
-	if (Alpha >= 1)
+	if (BGMusicData.Contains(mood) == false)
 	{
-		Alpha = 0;
-		MusicAudioComponent2->Stop();
-		MusicAudioComponent1->VolumeMultiplier = 1;
-		MusicAudioComponent2->VolumeMultiplier = 0;
-		GetWorld()->GetTimerManager().ClearTimer(SwitchMusicTimer);
 		return;
 	}
 
-	MusicAudioComponent1->VolumeMultiplier = Alpha;
-	MusicAudioComponent2->VolumeMultiplier = 1 - Alpha;
+	CurrentMood = mood;
+	MusicAudioComponent2->Stop();
+	MusicAudioComponent2->Sound = BGMusicData[CurrentMood];
+	MusicAudioComponent2->Play();
+
+	MusicAudioComponent1->AdjustVolume(SwitchingMusicTime, 0.f);
+	MusicAudioComponent2->AdjustVolume(SwitchingMusicTime, 1.f);
+}
+
+void ADynamicSoundSystem::SwitchMood(Mood mood1, Mood Mood2, float Percentage)
+{
+	if (CurrentMood != Mood::Country || BGMusicData.Contains(mood1) == false || BGMusicData.Contains(Mood2) == false)
+	{
+		return;
+	}
+
+	MusicAudioComponent1->Sound = BGMusicData[mood1];
+
+	if (MusicAudioComponent2->Sound != BGMusicData[Mood2])
+	{
+		MusicAudioComponent2->Stop();
+		MusicAudioComponent2->Sound = BGMusicData[Mood2];
+	}
+
+	if(MusicAudioComponent2->IsPlaying() == false)
+	{
+		MusicAudioComponent2->Play();
+	}
+
+	if (MusicAudioComponent1->IsPlaying() == false)
+	{
+		MusicAudioComponent1->Play();
+	}
+
+	MusicAudioComponent1->AdjustVolume(0.1f, Percentage);
+	MusicAudioComponent2->AdjustVolume(0.1f, 1 - Percentage);
 }

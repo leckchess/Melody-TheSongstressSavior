@@ -71,12 +71,10 @@ public:
 	UFUNCTION()
 	void SwitchMood(Mood mood);
 
-	UFUNCTION()
-	void SwitchMusic();
-
+	void SwitchMood(Mood mood1, Mood Mood2, float Percentage);
 
 private:
 	FTimerHandle SwitchMusicTimer;
-	Mood CurrentMood;
+	Mood CurrentMood = Mood::Country;
 	float Alpha;
 };

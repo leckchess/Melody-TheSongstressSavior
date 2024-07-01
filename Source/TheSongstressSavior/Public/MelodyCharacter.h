@@ -35,6 +35,9 @@ public:
 	void UpdateSpeed();
 
 	UFUNCTION()
+	void OnUseStaminaHandle(float Amount, float InCurrentStamina, float InMaxStamina);
+
+	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	
