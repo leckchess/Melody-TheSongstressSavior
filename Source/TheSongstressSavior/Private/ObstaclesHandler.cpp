@@ -48,6 +48,15 @@ void AObstaclesHandler::Tick(float DeltaTime)
 		{
 			InActor = ObstacleActor;
 		}
+		else if (rand() % 100 < 30)
+		{
+			// Disharmony Token
+			InActor = Tokens[1];
+		}
+		else if (rand() % 100 < 3)
+		{
+			InActor = Tokens[2];
+		}
 		
 		GetWorld()->SpawnActor<AActor>(
 			InActor,
