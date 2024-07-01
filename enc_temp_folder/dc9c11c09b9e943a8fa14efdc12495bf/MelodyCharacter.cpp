@@ -69,6 +69,12 @@ void AMelodyCharacter::BeginPlay()
 void AMelodyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (AutoForward == false)
+	{
+		return;
+	}
+
 	if (AutoForward)
 	{
 		// Constantly move the player forward

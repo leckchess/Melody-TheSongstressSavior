@@ -227,7 +227,7 @@ void AMelodyCharacter::OnCollectToken()
 
 void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 {
-	if (IsRefilling || StaminaController->GetCurrentStamina() <= 0)
+	if (StaminaController->GetCurrentStamina() <= 0)
 	{
 		Speed = LowSpeed;
 		IsRefilling = true;
