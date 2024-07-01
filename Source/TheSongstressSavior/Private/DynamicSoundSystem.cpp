@@ -32,31 +32,22 @@ void ADynamicSoundSystem::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (SoundsData.Num() == 0) { return; }
+	if (BGMusicData.Num() == 0) { return; }
 
-	CurrentSound = SoundsData[0];
-
-	if(CurrentSound)
+	if(BGMusicData.Contains(Mood::Country))
 	{
-		MusicAudioComponent1->Sound = CurrentSound->BgMusic;
+		MusicAudioComponent1->Sound = BGMusicData[Mood::Country];
 		MusicAudioComponent1->Play();
 	}
 }
 
 void ADynamicSoundSystem::OnGameStarted()
 {
-	if (SoundsData.Num() == 0) { return; }
+	AmbienceAudioComponent->Sound = MainSoundData->Ambience;
+	HorseAudioComponent->Sound = MainSoundData->HorseSteps;
 
-	CurrentSound = SoundsData[0];
-
-	if (CurrentSound)
-	{
-		AmbienceAudioComponent->Sound = CurrentSound->Ambience;
-		HorseAudioComponent->Sound = CurrentSound->HorseSteps;
-
-		AmbienceAudioComponent->Play();
-		HorseAudioComponent->Play();
-	}
+	AmbienceAudioComponent->Play();
+	HorseAudioComponent->Play();
 }
 
 void ADynamicSoundSystem::PlaySound(SFX sfx) const
@@ -64,21 +55,23 @@ void ADynamicSoundSystem::PlaySound(SFX sfx) const
 	switch (sfx)
 	{
 	case SFX::Collect:
-		SfxAudioComponent->Sound = CurrentSound->Collect;
+		SfxAudioComponent->Sound = MainSoundData->Collect;
 		break;
-	case SFX::Jump:
-		SfxAudioComponent->Sound = CurrentSound->Jump;
+	case SFX::Notification:
+		SfxAudioComponent->Sound = MainSoundData->Notification;
+		break;
 	default: ;
+		break;
 	}
 	SfxAudioComponent->Play();
 }
 
 void ADynamicSoundSystem::SwitchMood(Mood mood)
 {
-	MusicAudioComponent2->Sound = CurrentSound->BgMusic;
+	MusicAudioComponent2->Sound = BGMusicData[CurrentMood];
 	MusicAudioComponent2->VolumeMultiplier = 1;
-	CurrentSound = SoundsData[static_cast<int>(mood)];
-	MusicAudioComponent1->Sound = CurrentSound->BgMusic;
+	CurrentMood = mood;
+	MusicAudioComponent1->Sound = BGMusicData[CurrentMood];
 	MusicAudioComponent2->VolumeMultiplier = 0;
 
 	MusicAudioComponent1->Play();

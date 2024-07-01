@@ -19,11 +19,7 @@ void UMelodyHUD::InitHUD(ACharacter* InOwnerCharacter)
 	if (AMelodyCharacter* Melody = Cast<AMelodyCharacter>(OwnerCharacter))
 	{
 		Melody->OnUseStamina.AddUObject(this, &UMelodyHUD::UpdateStamina);
-	}
-
-	if (PB_Speed)
-	{
-		VB_Speed->SetVisibility(ESlateVisibility::Collapsed);
+		Melody->OnUpdateSpeed.AddUObject(this, &UMelodyHUD::UpdateSpeed);
 	}
 	
 	if (MainMenuOverlay)
@@ -107,14 +103,17 @@ void UMelodyHUD::NotifyStaminaUpdate(float Percentage)
 	if (Percentage > 0.7f)
 	{
 		ShowNoticication("Amazing As said 'Talk slowly, think quickly'", ENotificationType::EMessage);
+		OnShowNotification.Broadcast();
 	}
 	else if (Percentage <= 0.7f && Percentage > 0.3f)
 	{
 		ShowNoticication("Get More musical Notes", ENotificationType::EWarning);
+		OnShowNotification.Broadcast();
 	}
 	else if (Percentage <= 0.3f)
 	{
 		ShowNoticication("You Are out of musical power.", ENotificationType::EError);
+		OnShowNotification.Broadcast();
 	}
 }
 

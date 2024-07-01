@@ -6,7 +6,6 @@
 #include "StaminaController.h"
 #include "MelodyHUD.h"
 #include "Token.h"
-#include "DynamicSoundSystem.h"
 #include "Runtime/Engine/Public/EngineUtils.h"
 
 AMelodyCharacter::AMelodyCharacter()
@@ -131,6 +130,7 @@ void AMelodyCharacter::SetPlayerHUD(UUserWidget* InPlayerHUD)
 		}
 
 		PlayerHUD->OnGameStarted.AddUObject(this, &AMelodyCharacter::StartGame);
+		PlayerHUD->OnShowNotification.AddUObject(this, &AMelodyCharacter::OnShowNotificationHandle);
 	}
 }
 
@@ -191,6 +191,32 @@ ADynamicSoundSystem* AMelodyCharacter::GetAudioSystem()
 	return CachedAudioSystem;
 }
 
+void AMelodyCharacter::OnShowNotificationHandle()
+{
+	if(CachedAudioSystem == nullptr)
+	{
+		GetAudioSystem();
+	}
+
+	if (CachedAudioSystem)
+	{
+		CachedAudioSystem->PlaySound(SFX::Notification);
+	}
+}
+
+void AMelodyCharacter::OnCollectToken()
+{
+	if (CachedAudioSystem == nullptr)
+	{
+		GetAudioSystem();
+	}
+
+	if (CachedAudioSystem)
+	{
+		CachedAudioSystem->PlaySound(SFX::Collect);
+	}
+}
+
 void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 {
 	if (IsRefilling || StaminaController->GetCurrentStamina() <= 0)
@@ -223,6 +249,11 @@ bool AMelodyCharacter::UseStamina(float stamina)
 	}
 
 	return false;
+}
+
+void AMelodyCharacter::UpdateSpeed()
+{
+	OnUpdateSpeed.Broadcast(Speed, MaxSpeed);
 }
 
 void AMelodyCharacter::AddStamina(float stamina)
@@ -279,6 +310,18 @@ void AMelodyCharacter::Jump()
 	}
 }
 
+void AMelodyCharacter::ActivateMusicalMood(Mood MusicalMood)
+{
+	if (CachedAudioSystem == nullptr)
+	{
+		GetAudioSystem();
+	}
+
+	if (CachedAudioSystem)
+	{
+		CachedAudioSystem->SwitchMood(MusicalMood);
+	}
+}
 
 void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {

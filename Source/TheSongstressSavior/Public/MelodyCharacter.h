@@ -4,9 +4,11 @@
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "InputMappingContext.h"
+#include "DynamicSoundSystem.h"
 #include "MelodyCharacter.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnUseStamina, float Amount, float CurrentStamina, float MaxStamina)
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnUpdateSpeed, float CurrentSpeed, float MaxSpeed)
 
 class UStaminaController;
 
@@ -30,12 +32,19 @@ public:
 	void AddStamina(float stamina);
 	bool UseStamina(float stamina);
 
+	void UpdateSpeed();
+
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	
 	UFUNCTION()
 	void StartGame();
+
+	void OnCollectToken();
+
+	void ActivateMusicalMood(Mood MusicalMood);
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -51,6 +60,9 @@ private:
 	void ConstStaminaLoss(float DeltaTime);
 
 	class ADynamicSoundSystem* GetAudioSystem();
+
+	UFUNCTION()
+	void OnShowNotificationHandle();
 
 public:
 
@@ -74,6 +86,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input)
 	float Speed = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxSpeed = 10;
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* IMC_Input;
@@ -109,6 +124,7 @@ public:
 	class UCapsuleComponent* TriggerCapsule;
 
 	FOnUseStamina OnUseStamina;
+	FOnUpdateSpeed OnUpdateSpeed;
 
 protected:
 	FVector LaneEnd, PrevVector = FVector(0, 0, 0);

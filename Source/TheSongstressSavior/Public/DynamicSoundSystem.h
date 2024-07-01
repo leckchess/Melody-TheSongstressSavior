@@ -10,27 +10,32 @@ class USoundData;
 
 UENUM(BlueprintType)
 enum class SFX : uint8 {
-	Jump       UMETA(DisplayName="Jump"),
-	Collect    UMETA(DisplayName="Collect")
+	Notification       UMETA(DisplayName = "Notification"),
+	Collect			   UMETA(DisplayName = "Collect")
 };
 
 UENUM(BlueprintType)
 enum class Mood : uint8 {
-	Metal       UMETA(DisplayName="Metal"),
-	Jazz        UMETA(DisplayName="Jazz"),
-	Country     UMETA(DisplayName="Country")
+	Metal       UMETA(DisplayName = "Metal"),
+	Jazz        UMETA(DisplayName = "Jazz"),
+	Country     UMETA(DisplayName = "Country"),
+	SlowCountry     UMETA(DisplayName = "Slow Country")
 };
 
 UCLASS()
 class THESONGSTRESSSAVIOR_API ADynamicSoundSystem : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ADynamicSoundSystem();
+
 	UPROPERTY(EditAnywhere)
-	TArray<USoundData*> SoundsData;
+	USoundData* MainSoundData;
+
+	UPROPERTY(EditAnywhere)
+	TMap<Mood, USoundWave*> BGMusicData;
 
 	UPROPERTY(VisibleAnywhere)
 	UAudioComponent* SfxAudioComponent;
@@ -72,6 +77,6 @@ public:
 
 private:
 	FTimerHandle SwitchMusicTimer;
-	USoundData* CurrentSound;
+	Mood CurrentMood;
 	float Alpha;
 };

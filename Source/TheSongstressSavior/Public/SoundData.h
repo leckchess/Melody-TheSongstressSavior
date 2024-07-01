@@ -23,13 +23,10 @@ class THESONGSTRESSSAVIOR_API USoundData : public UDataAsset
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere)
-	USoundWave* Jump;
+	USoundWave* Notification;
 
 	UPROPERTY(EditAnywhere)
 	USoundWave* Collect;
-
-	UPROPERTY(EditAnywhere)
-	USoundWave* BgMusic;
 
 	UPROPERTY(EditAnywhere)
 	USoundWave* Ambience;

@@ -7,6 +7,7 @@
 #include "MelodyHUD.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnGameStarted)
+DECLARE_MULTICAST_DELEGATE(FOnShowNotification)
 
 UENUM(BlueprintType)
 enum ENotificationType
@@ -76,6 +77,7 @@ public:
 	float NotificationTime = 1.f;
 
 	FOnGameStarted OnGameStarted;
+	FOnShowNotification OnShowNotification;
 
 private:
 	ACharacter* OwnerCharacter;
