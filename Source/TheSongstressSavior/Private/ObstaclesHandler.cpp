@@ -25,6 +25,14 @@ void AObstaclesHandler::BeginPlay()
 	InitialVector = GetActorLocation();
 	PlaceVector = InitialVector + FVector(3 * ObjectGap.X, 0, 0);
 	GetWorld()->SpawnActor<AActor>(Tokens[0], PlaceVector, FRotator(0, 0, 0), ObstacleParams);
+
+	// Chance Percentage Calculation
+	StaminaChance = StaminaChance + ObstacleChance;
+	DisharmonyChance = DisharmonyChance + StaminaChance;
+	SpeedChance = SpeedChance + DisharmonyChance;
+	ImmunityChance = ImmunityChance + SpeedChance;
+	JazzChance = JazzChance + ImmunityChance;
+	MetalChance = MetalChance + JazzChance;
 }
 
 void AObstaclesHandler::Tick(float DeltaTime)
@@ -39,26 +47,61 @@ void AObstaclesHandler::Tick(float DeltaTime)
 
 		if (rand() % 100 < LaneChangeChance)
 		{
+			GetWorld()->SpawnActor<AActor>(
+				ObstacleActor,
+				PlaceVector,
+				FRotator(0, 0, 0),
+				ObstacleParams
+			);
+
 			do { MoveCount = rand() % GetLaneCount + 1; } while ( MoveCount == GetLanePos );
 			MoveCount = MoveCount - GetLanePos;
 			GetLanePos = GetLanePos + MoveCount;
 			PlaceVector = PlaceVector + FVector(0, MoveCount * GetLaneSize, 0);
 		}
-		if (rand() % 100 < 25)
+
+		// DO NOT change order of the Tokens in BP or in script
+		// Change 'Chance' value instead
+		int RandSelect = rand() % 100;
+		if (Tokens.Num() >= 6)
 		{
-			InActor = ObstacleActor;
-		}
-		else if (rand() % 100 < 30)
-		{
-			// Disharmony Token
-			InActor = Tokens[1];
-		}
-		else if (rand() % 100 < 3)
-		{
-			InActor = Tokens[2];
+			if (RandSelect <= ObstacleChance)
+			{
+				InActor = ObstacleActor;
+			}
+			else if (RandSelect > ObstacleChance && RandSelect <= StaminaChance)
+			{
+				// Stamina Token
+				InActor = Tokens[1];
+			}
+			else if (RandSelect > StaminaChance && RandSelect <= DisharmonyChance)
+			{
+				// Disharmony Token
+				InActor = Tokens[2];
+			}
+			else if (RandSelect > DisharmonyChance && RandSelect <= SpeedChance)
+			{
+				// Speed Token
+				InActor = Tokens[3];
+			}
+			else if (RandSelect > SpeedChance && RandSelect <= ImmunityChance)
+			{
+				// Immunity Token
+				InActor = Tokens[4];
+			}
+			else if (RandSelect > ImmunityChance && RandSelect <= JazzChance)
+			{
+				// Jazz Token
+				InActor = Tokens[5];
+			}
+			else if (RandSelect > JazzChance && RandSelect <= MetalChance)
+			{
+				// Metal Token
+				InActor = Tokens[6];
+			}
 		}
 		
-		GetWorld()->SpawnActor<AActor>(
+		AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(
 			InActor,
 			PlaceVector,
 			FRotator(0, 0, 0),

@@ -32,7 +32,35 @@ private:
 
 	// Percent out of 100
 	UPROPERTY(EditAnywhere)
-	int LaneChangeChance = 50;
+	int LaneChangeChance = 80;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int ObstacleChance = 25;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int StaminaChance = 15;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int DisharmonyChance = 10;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int SpeedChance = 3;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int ImmunityChance = 3;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int JazzChance = 1;
+
+	// Percent out of 100
+	UPROPERTY(EditAnywhere)
+	int MetalChance = 1;
 
 	int GetLaneCount = 2;
 	int GetLanePos = 1;

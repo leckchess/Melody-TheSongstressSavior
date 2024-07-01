@@ -9,15 +9,15 @@ void ASpeedToken::Interact(AMelodyCharacter* Character)
 	{
 		// Change the speed here
 		float curSpeed = Character->Speed;
-		Character->Speed = curSpeed * 3;
+		Character->Speed = curSpeed + 10;
 		// Display speed boost visual indicator here
 		// Example logging in BeginPlay
-		UE_LOG(LogTemp, Log, TEXT("Characterss %s initialized."), *GetName());
+		UE_LOG(LogTemp, Log, TEXT("Character %s initialized."), *GetName());
 
 		// Reset after 3 seconds
 		FTimerHandle TimerHandle;
 		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, [Character]() {
-			Character->Speed = Character->Speed / 3;
+			Character->Speed = Character->Speed - 10;
 			// Remove speed boost visual indicator here
 		}, 3.0f, false);
 	}

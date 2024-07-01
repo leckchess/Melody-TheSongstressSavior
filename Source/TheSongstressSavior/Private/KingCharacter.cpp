@@ -43,6 +43,7 @@ void AKingCharacter::Tick(float DeltaTime)
 	{
 		AKingCharacter::RandomSwitch(DeltaTime);
 	}
+
 	LaneInterp(DeltaTime);
 }
 

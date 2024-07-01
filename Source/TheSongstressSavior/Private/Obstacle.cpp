@@ -29,8 +29,10 @@ void AObstacle::BeginPlay()
 	{
 		const auto selectedIndex = FMath::RandRange(0, Meshes.Num() - 1);
 		MeshComponent->SetStaticMesh(Meshes[selectedIndex]);
+		MeshComponent->SetWorldScale3D(FVector(ObstacleScalar, ObstacleScalar, ObstacleScalar));
 	}
-	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OnComponentBeginOverlap);
+	// Changed to Overlap from Mesh to account for size difference
+	MeshComponent->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OnComponentBeginOverlap);
 }
 
 void AObstacle::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,

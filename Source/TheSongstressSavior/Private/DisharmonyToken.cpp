@@ -7,6 +7,6 @@ void ADisharmonyToken::Interact(AMelodyCharacter* Character)
 {
 	if (Character)
 	{
-		Character->UseStamina(FMath::RandRange(0.0, 0.3));
+		Character->UseStamina(FMath::RandRange(5, 15));
 	}
 }

@@ -6,6 +6,7 @@
 #include "StaminaController.h"
 #include "MelodyHUD.h"
 #include "Token.h"
+#include "WinCollider.h"
 #include "Runtime/Engine/Public/EngineUtils.h"
 
 AMelodyCharacter::AMelodyCharacter()
@@ -227,7 +228,7 @@ void AMelodyCharacter::OnCollectToken()
 
 void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 {
-	if (StaminaController->GetCurrentStamina() <= 0)
+	if (IsRefilling || StaminaController->GetCurrentStamina() <= 0)
 	{
 		Speed = LowSpeed;
 		IsRefilling = true;
@@ -354,6 +355,10 @@ void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			Token->Interact(this);
 			Token->Destroy();
 		}
-        
+
+		if (AWinCollider* Winner = Cast<AWinCollider>(OtherActor))
+		{
+			Winner->Win(this);
+		}
 	}
 } 

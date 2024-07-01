@@ -16,6 +16,8 @@ class THESONGSTRESSSAVIOR_API AObstacle : public AActor
 public:
 	UPROPERTY(EditAnywhere)
 	float StaminaLossOnHit;
+	UPROPERTY(EditAnywhere)
+	float ObstacleScalar = 2;
 	UPROPERTY(VisibleAnywhere)
     USceneComponent* Root;
 	UPROPERTY(VisibleDefaultsOnly)

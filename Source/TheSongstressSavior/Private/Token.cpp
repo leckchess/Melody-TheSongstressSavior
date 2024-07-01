@@ -17,6 +17,16 @@ void AToken::Tick(float DeltaTime)
 
 void AToken::Interact(AMelodyCharacter* Character)
 {
-	Character->OnCollectToken();
-	// Default interact implementation, can be overridden by derived classes
+	if (Character && Character->GetOwner()->GetName() != "AIController_0")
+	{
+		Character->Speed = Character->Speed + 2;
+		Character->AddStamina(0.1);
+
+		FTimerHandle TimerHandle;
+		Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, [Character]() {
+			Character->Speed = Character->Speed - 2;
+		}, 1.0f, false);
+
+		Character->OnCollectToken();
+	}
 }

@@ -128,6 +128,14 @@
 		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
 	},
 	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Private/WinCollider.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/DisharmonyToken.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
@@ -249,6 +257,14 @@
 	},
 	{
 		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/Token.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.3/Engine/Source"
+	},
+	{
+		"file": "/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/Source/TheSongstressSavior/Public/WinCollider.h",
 		"arguments": [
 			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
 			"@/Users/ethanjmac/Documents/GitHub/Melody-TheSongstressSavior/.vscode/compileCommands_Default/TheSongstressSavior.1.rsp"

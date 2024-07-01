@@ -48,6 +48,9 @@ public:
 
 	void ActivateMusicalMood(Mood MusicalMood);
 
+	float LowSpeed = 0.0;
+	float RegSpeed = 0.0;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -68,7 +71,6 @@ private:
 	void OnShowNotificationHandle();
 
 public:
-
 	UPROPERTY(EditAnywhere, Category = "Lane Options")
 	int LaneCount = 2;
 
@@ -135,11 +137,9 @@ protected:
 	float LaneLerp = 0.0;
 	bool CanChange = true;
 
-
 	class ADynamicSoundSystem* CachedAudioSystem;
 
 private:
-
 	bool IsRefilling = false;
 	bool MoveCancelsReplenish = false;
 	bool AlwaysLooseStamina = true;
@@ -149,7 +149,4 @@ private:
 
 	UStaminaController* StaminaController;
 	class UMelodyHUD* PlayerHUD;
-
-	float LowSpeed = 0.0;
-	float RegSpeed = 0.0;
 };

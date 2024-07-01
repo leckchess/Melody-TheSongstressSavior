@@ -11,7 +11,7 @@ class USoundData;
 UENUM(BlueprintType)
 enum class SFX : uint8 {
 	Notification       UMETA(DisplayName = "Notification"),
-	Collect			   UMETA(DisplayName = "Collect")
+	Collect            UMETA(DisplayName = "Collect")
 };
 
 UENUM(BlueprintType)
