@@ -17,7 +17,7 @@ void AObstaclesHandler::BeginPlay()
 
 	if (Melody != nullptr)
 	{
-		ObjectGap = FVector(Melody->Speed * 80, 0, 0);
+		ObjectGap = FVector(Melody->Speed * 120, 0, 0);
 		GetLanePos = (GetLanePos + 1) / 2;
 		GetLaneCount = Melody->LaneCount;
 		GetLaneSize = Melody->LaneSize;
@@ -68,6 +68,12 @@ void AObstaclesHandler::Tick(float DeltaTime)
 			if (RandSelect <= ObstacleChance)
 			{
 				InActor = ObstacleActor;
+				GetWorld()->SpawnActor<AActor>(
+					Tokens[0],
+					PlaceVector + FVector(0, 0, 120),
+					FRotator(0, 0, 0),
+					ObstacleParams
+				);
 			}
 			else if (RandSelect > ObstacleChance && RandSelect <= StaminaChance)
 			{
@@ -101,7 +107,7 @@ void AObstaclesHandler::Tick(float DeltaTime)
 			}
 		}
 		
-		AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(
+		GetWorld()->SpawnActor<AActor>(
 			InActor,
 			PlaceVector,
 			FRotator(0, 0, 0),

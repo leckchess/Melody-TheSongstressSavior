@@ -31,8 +31,8 @@ public:
 	/* stamina percentage from 0 to 1 */
 	void AddStamina(float stamina);
 	bool UseStamina(float stamina);
-
-	void UpdateSpeed();
+	// Positive or negative InSpeed will be added to current Speed
+	float UpdateSpeed(float InSpeed);
 
 	UFUNCTION()
 	void OnUseStaminaHandle(float Amount, float InCurrentStamina, float InMaxStamina);
@@ -93,7 +93,7 @@ public:
 	float Speed = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxSpeed = 10;
+	float MaxSpeed = 30;
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* IMC_Input;

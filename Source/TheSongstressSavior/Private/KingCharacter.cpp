@@ -20,6 +20,7 @@ void AKingCharacter::BeginPlay()
 		LaneSize = Melody->LaneSize;
 		LaneChangeSpeed = Melody->LaneChangeSpeed;
 		Speed = Melody->Speed;
+		RegSpeed = Speed;
 	}
 }
 
@@ -30,7 +31,15 @@ void AKingCharacter::Tick(float DeltaTime)
 		return;
 	}
 
-	// TODO: Make dynamic to allow speeding up or slowing down
+	if (Melody->GetActorLocation().X + 1000 > GetActorLocation().X)
+	{
+		Speed = Melody->Speed + 2;
+	}
+	else
+	{
+		Speed = RegSpeed;
+	}
+
 	FVector CurVec = GetActorLocation();
 	SetActorLocation(CurVec + FVector(Speed, 0, 0));
 

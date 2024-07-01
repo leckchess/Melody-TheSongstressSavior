@@ -30,6 +30,9 @@ void AObstacle::BeginPlay()
 		const auto selectedIndex = FMath::RandRange(0, Meshes.Num() - 1);
 		MeshComponent->SetStaticMesh(Meshes[selectedIndex]);
 		MeshComponent->SetWorldScale3D(FVector(ObstacleScalar, ObstacleScalar, ObstacleScalar));
+
+		FRotator RandRotation = FRotator(0, FMath::RandRange(0, 180), 0);
+		MeshComponent->SetRelativeRotation(FQuat(RandRotation));
 	}
 	// Changed to Overlap from Mesh to account for size difference
 	MeshComponent->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OnComponentBeginOverlap);
@@ -42,6 +45,7 @@ void AObstacle::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent
 	if(character!= nullptr)
 	{
 		character->UseStamina(StaminaLossOnHit);
+		character->Speed = FMath::Clamp(character->Speed - 10, character->LowSpeed, character->MaxSpeed);
 		Destroy();
 	}
 }

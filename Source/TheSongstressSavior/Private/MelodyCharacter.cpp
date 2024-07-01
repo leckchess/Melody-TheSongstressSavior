@@ -36,6 +36,12 @@ void AMelodyCharacter::BeginPlay()
 
 	LowSpeed = Speed * 0.75;
 	RegSpeed = Speed;
+	if (MaxSpeed > Speed)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Speed was greater than MaxSpeed. MaxSpeed was updated to match Speed"));
+		MaxSpeed = Speed;
+	}
+	AMelodyCharacter::UpdateSpeed(0);
 	
 	// Set initial lane to median
 	LanePos = (LaneCount + 1) / 2;
@@ -243,6 +249,7 @@ void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 			Speed = RegSpeed;
 			IsRefilling = false;
 		}
+		AMelodyCharacter::UpdateSpeed(0);
 	}
 }
 
@@ -260,9 +267,12 @@ bool AMelodyCharacter::UseStamina(float stamina)
 	return false;
 }
 
-void AMelodyCharacter::UpdateSpeed()
+float AMelodyCharacter::UpdateSpeed(float InSpeed)
 {
+	// Adds the InSpeed to Current Speed
+	Speed = Speed + InSpeed;
 	OnUpdateSpeed.Broadcast(Speed, MaxSpeed);
+	return Speed;
 }
 
 void AMelodyCharacter::OnUseStaminaHandle(float Amount, float InCurrentStamina, float InMaxStamina)

@@ -4,6 +4,6 @@ void AStaminaToken::Interact(AMelodyCharacter* Character)
 {
 	if (Character)
 	{
-		Character->AddStamina(0.6);
+		Character->AddStamina(0.9);
 	}
 }
