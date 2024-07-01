@@ -62,6 +62,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	int MetalChance = 1;
 
+	int DelayUntilSpecial = 5;
 	int GetLaneCount = 2;
 	int GetLanePos = 1;
 	float GetLaneSize = 200.0;

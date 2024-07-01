@@ -5,11 +5,14 @@ void AJazzUltimateToken::Interact(AMelodyCharacter* Character)
 {
 	if (Character)
 	{
-		
-		// Add code to Change background music to jazz genre here
+		Character->ActivateMusicalMood(Mood::Jazz);
+		Character->JazzActive = true;
 
-		
-		// Character->SetBackgroundMusic("Jazz");
+		FTimerHandle JazzToken;
+		Character->GetWorld()->GetTimerManager().SetTimer(JazzToken, [Character]() {
+			Character->ActivateMusicalMood(Mood::Country);
+			Character->JazzActive = false;
+		}, 15.0f, false);
 		// Character->SetRideAboveObstacles(true);
 	}
 }

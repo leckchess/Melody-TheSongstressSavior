@@ -7,13 +7,17 @@ void AMetalUltimateToken::Interact(AMelodyCharacter* Character)
 {
 	if (Character)
 	{
+		Character->ActivateMusicalMood(Mood::Metal);
+		Character->MetalActive = true;
+		Character->IsInvulnerable = true;
+		Character->UpdateSpeed(12);
 
-		// Add logic for metal ultimate token
-
-		
-		// // Change background music to metal genre here
-		// Character->SetBackgroundMusic("Metal");
-		// Character->SetUnlimitedStamina(true);
-		// Character->GetCharacterMovement()->MaxWalkSpeed *= 1.1f;
+		FTimerHandle MetalToken;
+		Character->GetWorld()->GetTimerManager().SetTimer(MetalToken, [Character]() {
+			Character->ActivateMusicalMood(Mood::Country);
+			Character->MetalActive = false;
+			Character->IsInvulnerable = false;
+			Character->UpdateSpeed(-12);
+		}, 15.0f, false);
 	}
 }

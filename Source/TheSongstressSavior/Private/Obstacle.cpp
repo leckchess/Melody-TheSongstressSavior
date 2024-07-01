@@ -44,8 +44,11 @@ void AObstacle::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent
 	const auto character = Cast<AMelodyCharacter>(OtherActor);
 	if(character!= nullptr)
 	{
-		character->UseStamina(StaminaLossOnHit);
-		character->UpdateSpeed(-10);
+		if (!character->IsInvulnerable)
+		{
+			character->UseStamina(StaminaLossOnHit);
+			character->UpdateSpeed(-10);
+		}
 		Destroy();
 	}
 }

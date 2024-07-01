@@ -48,6 +48,12 @@ public:
 
 	void ActivateMusicalMood(Mood MusicalMood);
 
+	void OnWinLevel();
+
+	bool IsInvulnerable = false;
+	bool MetalActive = false;
+	bool JazzActive = false;
+	bool WonLevel = false;
 	float LowSpeed = 0.0;
 	float RegSpeed = 0.0;
 

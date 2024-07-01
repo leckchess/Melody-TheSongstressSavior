@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MelodyCharacter.h"
 #include "GameFramework/Actor.h"
 #include "WinCollider.generated.h"
 

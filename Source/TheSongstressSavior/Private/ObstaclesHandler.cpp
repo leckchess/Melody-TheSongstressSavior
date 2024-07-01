@@ -65,6 +65,7 @@ void AObstaclesHandler::Tick(float DeltaTime)
 		int RandSelect = rand() % 100;
 		if (Tokens.Num() >= 6)
 		{
+			DelayUntilSpecial = DelayUntilSpecial >= 1 ? DelayUntilSpecial - 1 : 0;
 			if (RandSelect <= ObstacleChance)
 			{
 				InActor = ObstacleActor;
@@ -90,20 +91,26 @@ void AObstaclesHandler::Tick(float DeltaTime)
 				// Speed Token
 				InActor = Tokens[3];
 			}
-			else if (RandSelect > SpeedChance && RandSelect <= ImmunityChance)
+			if (DelayUntilSpecial == 0)
 			{
-				// Immunity Token
-				InActor = Tokens[4];
-			}
-			else if (RandSelect > ImmunityChance && RandSelect <= JazzChance)
-			{
-				// Jazz Token
-				InActor = Tokens[5];
-			}
-			else if (RandSelect > JazzChance && RandSelect <= MetalChance)
-			{
-				// Metal Token
-				InActor = Tokens[6];
+				if (RandSelect > SpeedChance && RandSelect <= ImmunityChance)
+				{
+					// Immunity Token
+					InActor = Tokens[4];
+					DelayUntilSpecial = 15;
+				}
+				else if (RandSelect > ImmunityChance && RandSelect <= JazzChance)
+				{
+					// Jazz Token
+					InActor = Tokens[5];
+					DelayUntilSpecial = 15;
+				}
+				else if (RandSelect > JazzChance && RandSelect <= MetalChance)
+				{
+					// Metal Token
+					InActor = Tokens[6];
+					DelayUntilSpecial = 15;
+				}
 			}
 		}
 		

@@ -20,5 +20,6 @@ void AWinCollider::Tick(float DeltaTime)
 
 void AWinCollider::Win(AMelodyCharacter* Melody)
 {
-	GEngine->AddOnScreenDebugMessage(0, 3.0f, FColor::Red, FString::Printf(TEXT("WINNER")));
+	Melody->WonLevel = true;
+	Melody->OnWinLevel();
 }

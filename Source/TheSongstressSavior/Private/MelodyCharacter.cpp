@@ -76,21 +76,24 @@ void AMelodyCharacter::BeginPlay()
 void AMelodyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	GEngine->AddOnScreenDebugMessage(0, DeltaTime, FColor::Blue, FString::Printf(TEXT("%f"), Speed));
 
 	if (AutoForward == false)
 	{
 		return;
 	}
 
-	if (AutoForward)
+	if (AutoForward && !WonLevel)
 	{
 		// Constantly move the player forward
-		const FVector CurrentVector = GetActorLocation();
+		FVector CurrentVector = GetActorLocation();
+		if (JazzActive)
+		{
+			CurrentVector.Z = 1000;
+		}
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
-	if (AlwaysLooseStamina && !IsRefilling) { AMelodyCharacter::ConstStaminaLoss(DeltaTime); }
+	if (AlwaysLooseStamina && !IsRefilling && !WonLevel) { AMelodyCharacter::ConstStaminaLoss(DeltaTime); }
 	AMelodyCharacter::LaneInterp(DeltaTime);
 	AMelodyCharacter::ReplenishStamina(DeltaTime);
 }
@@ -256,7 +259,7 @@ void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 
 bool AMelodyCharacter::UseStamina(float stamina)
 {
-	if (StaminaController == nullptr) { return true; }
+	if (StaminaController == nullptr || MetalActive) { return true; }
 
 	if (StaminaController->UseStamina(stamina))
 	{
@@ -274,12 +277,7 @@ float AMelodyCharacter::UpdateSpeed(float InSpeed)
 	Speed = Speed + InSpeed;
 	Speed = FMath::Clamp(Speed, LowSpeed, MaxSpeed);
 	OnUpdateSpeed.Broadcast(Speed, MaxSpeed);
-	if (CachedAudioSystem)
-	{
-		float Percentage = (Speed - LowSpeed / RegSpeed - LowSpeed);
-		Percentage = FMath::Clamp(Percentage, 0, 1);
-		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
-	}
+
 
 	return Speed;
 }
@@ -289,6 +287,12 @@ void AMelodyCharacter::OnUseStaminaHandle(float Amount, float InCurrentStamina, 
 	if (CachedAudioSystem == nullptr)
 	{
 		GetAudioSystem();
+	}
+
+	if (CachedAudioSystem)
+	{
+		float Percentage = (StaminaController->GetCurrentStamina() / StaminaController->GetMaxStamina());
+		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
 	}
 }
 
@@ -300,7 +304,7 @@ void AMelodyCharacter::AddStamina(float stamina)
 
 void AMelodyCharacter::LaneChange(float Direction)
 {
-	if (!CanChange || !MoveInAir && GetCharacterMovement()->IsFalling()) return;
+	if (!CanChange || !MoveInAir && GetCharacterMovement()->IsFalling() && !JazzActive) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 
 	if (Direction < 0 && LanePos > 1)
@@ -374,4 +378,9 @@ void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 			Winner->Win(this);
 		}
 	}
-} 
+}
+
+void AMelodyCharacter::OnWinLevel()
+{
+	// Something happens
+}
