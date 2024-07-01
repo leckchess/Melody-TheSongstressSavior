@@ -8,6 +8,7 @@ void ADisharmonyToken::Interact(AMelodyCharacter* Character)
 	if (Character)
 	{
 		Character->UseStamina(FMath::RandRange(10, 20));
+		Character->Speed = Character->LowSpeed;
 		FTimerHandle SlowEffect;
 		Character->GetWorld()->GetTimerManager().SetTimer(SlowEffect, [Character]() {
 			Character->Speed = Character->RegSpeed;

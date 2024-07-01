@@ -11,12 +11,6 @@ void AImmunityToken::Interact(AMelodyCharacter* Character)
 
 		
 		// Character->SetInvulnerable(true);
-		// // Display invulnerability visual indicator here
-		//
-		// FTimerHandle TimerHandle;
-		// Character->GetWorld()->GetTimerManager().SetTimer(TimerHandle, [Character]() {
-		// 	Character->SetInvulnerable(false);
-		// 	// Remove invulnerability visual indicator here
-		// }, 10.0f, false);
+
 	}
 }

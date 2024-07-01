@@ -36,7 +36,7 @@ void AMelodyCharacter::BeginPlay()
 
 	LowSpeed = Speed * 0.75;
 	RegSpeed = Speed;
-	if (MaxSpeed > Speed)
+	if (Speed > MaxSpeed)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Speed was greater than MaxSpeed. MaxSpeed was updated to match Speed"));
 		MaxSpeed = Speed;
@@ -76,6 +76,7 @@ void AMelodyCharacter::BeginPlay()
 void AMelodyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	GEngine->AddOnScreenDebugMessage(0, DeltaTime, FColor::Blue, FString::Printf(TEXT("%f"), Speed));
 
 	if (AutoForward == false)
 	{
@@ -249,7 +250,7 @@ void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 			Speed = RegSpeed;
 			IsRefilling = false;
 		}
-		AMelodyCharacter::UpdateSpeed(0);
+		//AMelodyCharacter::UpdateSpeed(0);
 	}
 }
 
@@ -271,7 +272,15 @@ float AMelodyCharacter::UpdateSpeed(float InSpeed)
 {
 	// Adds the InSpeed to Current Speed
 	Speed = Speed + InSpeed;
+	Speed = FMath::Clamp(Speed, LowSpeed, MaxSpeed);
 	OnUpdateSpeed.Broadcast(Speed, MaxSpeed);
+	if (CachedAudioSystem)
+	{
+		float Percentage = (Speed - LowSpeed / RegSpeed - LowSpeed);
+		Percentage = FMath::Clamp(Percentage, 0, 1);
+		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
+	}
+
 	return Speed;
 }
 
@@ -280,12 +289,6 @@ void AMelodyCharacter::OnUseStaminaHandle(float Amount, float InCurrentStamina, 
 	if (CachedAudioSystem == nullptr)
 	{
 		GetAudioSystem();
-	}
-
-	if (CachedAudioSystem)
-	{
-		float Percentage = (InCurrentStamina / InMaxStamina);
-		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
 	}
 }
 

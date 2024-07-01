@@ -45,7 +45,7 @@ void AObstacle::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent
 	if(character!= nullptr)
 	{
 		character->UseStamina(StaminaLossOnHit);
-		character->Speed = FMath::Clamp(character->Speed - 10, character->LowSpeed, character->MaxSpeed);
+		character->UpdateSpeed(-10);
 		Destroy();
 	}
 }
