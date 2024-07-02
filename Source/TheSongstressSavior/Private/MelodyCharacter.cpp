@@ -352,6 +352,22 @@ void AMelodyCharacter::Jump()
 
 void AMelodyCharacter::ActivateMusicalMood(Mood MusicalMood)
 {
+	if(PlayerHUD)
+	{
+		if (MusicalMood == Mood::Jazz)
+		{
+			PlayerHUD->ShowNoticication("JAZZ MOOD ACTIVATED, d-worry about obstacles anymore", ENotificationType::EMessage);
+		}
+		else if (MusicalMood == Mood::Metal)
+		{
+			PlayerHUD->ShowNoticication("JAZZ MOOD ACTIVATED, d-worry about stamina anymore", ENotificationType::EMessage);
+		}
+		if (MusicalMood == Mood::Country)
+		{
+			PlayerHUD->ShowNoticication("Back To Normal , TC pro", ENotificationType::EWarning);
+		}
+	}
+
 	if (CachedAudioSystem == nullptr)
 	{
 		GetAudioSystem();
