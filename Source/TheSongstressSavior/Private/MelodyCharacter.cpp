@@ -86,10 +86,6 @@ void AMelodyCharacter::Tick(float DeltaTime)
 	{
 		// Constantly move the player forward
 		FVector CurrentVector = GetActorLocation();
-		if (JazzActive)
-		{
-			CurrentVector.Z = 1000;
-		}
 		SetActorLocation(CurrentVector + FVector(Speed, 0, 0));
 	}
 
@@ -259,7 +255,7 @@ void AMelodyCharacter::ReplenishStamina(float DeltaTime)
 
 bool AMelodyCharacter::UseStamina(float stamina)
 {
-	if (StaminaController == nullptr || MetalActive) { return true; }
+	if (StaminaController == nullptr || JazzActive) { return true; }
 
 	if (StaminaController->UseStamina(stamina))
 	{
@@ -304,7 +300,7 @@ void AMelodyCharacter::AddStamina(float stamina)
 
 void AMelodyCharacter::LaneChange(float Direction)
 {
-	if (!CanChange || !MoveInAir && GetCharacterMovement()->IsFalling() && !JazzActive) return;
+	if (!CanChange || !MoveInAir && GetCharacterMovement()->IsFalling()) return;
 	LaneEnd = FVector(0, LaneSize * Direction, 0);
 
 	if (Direction < 0 && LanePos > 1)
@@ -354,11 +350,11 @@ void AMelodyCharacter::ActivateMusicalMood(Mood MusicalMood)
 {
 	if(PlayerHUD)
 	{
-		if (MusicalMood == Mood::Jazz)
+		if (MusicalMood == Mood::Metal)
 		{
-			PlayerHUD->ShowNoticication("JAZZ MOOD ACTIVATED, d-worry about obstacles anymore", ENotificationType::EMessage);
+			PlayerHUD->ShowNoticication("METAL MOOD ACTIVATED, d-worry about obstacles anymore", ENotificationType::EMessage);
 		}
-		else if (MusicalMood == Mood::Metal)
+		else if (MusicalMood == Mood::Jazz)
 		{
 			PlayerHUD->ShowNoticication("JAZZ MOOD ACTIVATED, d-worry about stamina anymore", ENotificationType::EMessage);
 		}
