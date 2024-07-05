@@ -289,6 +289,16 @@ void AMelodyCharacter::OnUseStaminaHandle(float Amount, float InCurrentStamina, 
 	{
 		float Percentage = (StaminaController->GetCurrentStamina() / StaminaController->GetMaxStamina());
 		CachedAudioSystem->SwitchMood(Mood::Country, Mood::SlowCountry, Percentage);
+
+		if (Percentage >= 0.7f)
+		{
+			UpdateSpeed(0.01f);
+		}
+		else if (Percentage <= 0.3f)
+		{
+			UpdateSpeed(-0.001f);
+		}
+
 	}
 }
 
@@ -395,4 +405,13 @@ void AMelodyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 void AMelodyCharacter::OnWinLevel()
 {
 	// Something happens
+
+	AutoForward = false;
+
+	if (PlayerHUD)
+	{
+		PlayerHUD->OnLevelEnds();
+	}
+
+	ActivateMusicalMood(Mood::Country);
 }

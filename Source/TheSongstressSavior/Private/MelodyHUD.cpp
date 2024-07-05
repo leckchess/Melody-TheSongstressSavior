@@ -117,6 +117,22 @@ void UMelodyHUD::NotifyStaminaUpdate(float Percentage)
 	}
 }
 
+void UMelodyHUD::OnLevelEnds()
+{
+	if (MainMenuOverlay)
+	{
+		MainMenuOverlay->SetVisibility(ESlateVisibility::Visible);
+	}
+	if (PlayButton)
+	{
+		PlayButton->SetVisibility(ESlateVisibility::Hidden);
+	}
+	if (InGameOverlay)
+	{
+		InGameOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
 void UMelodyHUD::UpdateSpeed(float CurrentSpeed, float MaxSpeed)
 {
 	if (PB_Speed == nullptr) { return; }
@@ -132,7 +148,7 @@ void UMelodyHUD::UpdateSpeed(float CurrentSpeed, float MaxSpeed)
 	float Percentage = CurrentSpeed / MaxSpeed;
 	if (Percentage > 0.7f)
 	{
-		PB_Speed->SetFillColorAndOpacity(FColor::Red);
+		PB_Speed->SetFillColorAndOpacity(FColor::Green);
 	}
 	else if (Percentage <= 0.7f && Percentage > 0.3f)
 	{
@@ -140,7 +156,7 @@ void UMelodyHUD::UpdateSpeed(float CurrentSpeed, float MaxSpeed)
 	}
 	else if (Percentage <= 0.3f)
 	{
-		PB_Speed->SetFillColorAndOpacity(FColor::Green);
+		PB_Speed->SetFillColorAndOpacity(FColor::Red);
 	}
 
 	PB_Speed->SetPercent(Percentage);

@@ -42,6 +42,7 @@ public:
 
 	void NotifyStaminaUpdate(float Percentage);
 
+	void OnLevelEnds();
 private:
 	void HideNotification();
 
